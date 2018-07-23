@@ -4,19 +4,22 @@
       "id": "1",
       "firstName": "Yarik",
       "lastName": "Mokhurenko",
-      "email": "yarik335@rambler.ru"
+      "email": "yarik335@rambler.ru",
+      "carPlate": "ca5566hc"
     },
     {
       "id": "2",
       "firstName": "alibaba",
       "lastName": "razboinik",
-      "email": "yarik335@gmail.com"
+      "email": "yarik335@gmail.com",
+      "carPlate": "ca6914bh"
     },
     {
       "id": "3",
       "firstName": "Dart",
       "lastName": "Vader",
-      "email": "yaroslavmokhurenko@gmail.com"
+      "email": "yaroslavmokhurenko@gmail.com",
+      "carPlate": "bh7777bo"
     }
   ],
   "journal": [
@@ -43,7 +46,8 @@
           "categoryName": 1
         }
       ],
-      "total": 1220
+      "total": 1220,
+      "createdAt": "2018-07-23T08:54:03.859Z"
     },
     {
       "id": 2,
@@ -68,7 +72,8 @@
           "categoryName": 2
         }
       ],
-      "total": 1500
+      "total": 1500,
+      "createdAt": "2018-07-23T08:54:03.859Z"
     },
     {
       "id": 3,
@@ -93,7 +98,8 @@
           "categoryName": 3
         }
       ],
-      "total": 1220
+      "total": 1220,
+      "createdAt": "2018-07-23T08:54:03.859Z"
     }
   ],
   "services": [
@@ -147,24 +153,6 @@
     },
     {
       "id": 9,
-      "name": "Steering wheel",
-      "price": 600,
-      "categoryName": "Wheels"
-    },
-    {
-      "id": 10,
-      "name": "Steering wheel",
-      "price": 600,
-      "categoryName": "Wheels"
-    },
-    {
-      "id": 11,
-      "name": "Steering wheel",
-      "price": 600,
-      "categoryName": "Wheels"
-    },
-    {
-      "id": 12,
       "name": "Steering wheel",
       "price": 600,
       "categoryName": "Wheels"

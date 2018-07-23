@@ -1,13 +1,14 @@
 import React, { PureComponent } from 'react';
 import classes from './App.css'
-import Layout from "./components/Layout/Layout";
+import Layout from "../Layout/Layout";
 import { Table, Container } from "reactstrap";
-import Clients from "./components/Clients/Clients";
-import Journal from "./components/Journal/Journal";
-import Services from "./components/Services/Services";
-import Categories from "./components/Categories/Categories";
-import Modal from "./UI/Modal/Modal";
-import Discounts from "./components/Discounts/Discounts";
+import Clients from "../../components/Clients/Clients";
+import Journal from "../../components/Journal/Journal";
+import Services from "../../components/Services/Services";
+import Categories from "../../components/Categories/Categories";
+import Modal from "../../UI/Modal/Modal";
+import Discounts from "../../components/Discounts/Discounts";
+import BillBuilder from "../BillBuilder/BillBuilder";
 
 class App extends PureComponent {
     state = {
@@ -40,11 +41,13 @@ class App extends PureComponent {
 
                         <Table hover className={classes.tableScroll}>
                             {/*<Clients />*/}
-                            {/*<Journal showModal={showModalHandler} setModalContent={this.setModal}/>*/}
-                            <Services />
+                            <Journal showModal={showModalHandler} setModalContent={this.setModal}/>
+                            {/*<Services />*/}
                             {/*<Categories showModal={showModalHandler} setModalContent={this.setModal}/>*/}
                             {/*<Discounts showModal={showModalHandler} setModalContent={this.setModal}/>*/}
                         </Table>
+                        <hr/>
+                        <BillBuilder/>
                     </Container>
                 </Layout>
             </div>

@@ -8,15 +8,17 @@ const Client = function(props) {
         return (
             <Aux>
                 <th scope='row'> {props.id} </th>
-                <td> {props.name} </td>
+                <td> {props.firstName} </td>
                 <td> {props.lastName} </td>
                 <td> {props.email} </td>
-                <td className="text-right">
+                <td> {props.carPlate.toUpperCase()} </td>
+                {props.isShown ? null : <td className="text-right">
                     <button type="button" className="close text-right" aria-label="Close"
                             onClick={props.deleteClient}>
                         <span aria-hidden="true">&times;</span>
                     </button>
-                </td>
+                </td>}
+
             </Aux>
         )
     };

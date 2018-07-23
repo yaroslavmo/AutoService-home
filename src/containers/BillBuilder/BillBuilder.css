@@ -1,0 +1,20 @@
+.BillBuilder{
+    margin-top: 40px;
+    padding: 10px;
+    border: 2px solid #dee1e5;
+}
+
+.BillBuilder button{
+    margin-top: 5px;
+}
+.clientsTable{
+    width: 100%;
+}
+
+table tbody tr{
+    cursor: pointer;
+}
+.newClientInput{
+    margin-right: 5px;
+    margin-left: 5px;
+}

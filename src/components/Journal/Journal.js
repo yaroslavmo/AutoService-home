@@ -24,7 +24,8 @@ class Journal extends PureComponent {
                     <th>#</th>
                     <th>ClientId</th>
                     <th>Services</th>
-                    <th colSpan={3}>Total</th>
+                    <th>Total</th>
+                    <th colSpan={3}>createdAt</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -36,6 +37,7 @@ class Journal extends PureComponent {
                                     client={bill.billClientId}
                                     billServices={bill.billServices}
                                     total={bill.total}
+                                    createdAt={bill.createdAt}
                                     deleteBill={() => deleteBillHandler(index)}
                                     modal={this.props.showModal}
                                     setModal={this.props.setModalContent}

@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 // import PropTypes from 'prop-types'
 
 import Aux from '../../../hoc/Auxiliary';
-import Modal from "../../../UI/Modal/Modal";
-import BillServices from "../BillServices/BillServices";
 import { Button } from "reactstrap";
 import CategoryServices from "../../Categories/CategoryServices/CategoryServices";
 
@@ -27,10 +25,8 @@ class Bill extends Component {
                     setModalContent();
                     this.props.modal();
                 }}>services</Button>{' '}</td>
-                {/*<td><Modal show={this.state.billServicesShow} modalClosed={this.closeBillServicesHandler}>*/}
-                    {/*<BillServices services={this.props.billServices}/>*/}
-                {/*</Modal></td>*/}
                 <td> {this.props.total} </td>
+                <td> {new Date(this.props.createdAt).toLocaleString()} </td>
                 <td className="text-right">
                     <button type="button" className="close text-right" aria-label="Close"
                             onClick={this.props.deleteBill}>
@@ -42,13 +38,5 @@ class Bill extends Component {
     }
 }
 
-// Bill.propTypes = {
-//     id: PropTypes.string,
-//     firstName: PropTypes.string,
-//     lastName: PropTypes.string,
-//     email: PropTypes.string,
-//     deleteBill: PropTypes.func,
-//     changeName: PropTypes.func,
-// };
 
 export default Bill;

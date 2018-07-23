@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-// import PropTypes from 'prop-types'
 
 import Aux from '../../../hoc/Auxiliary';
 import { Button } from "reactstrap";
@@ -31,12 +30,6 @@ class Category extends Component {
                     this.props.modal();
                 }}>discounts
                     </Button>{' '}</td>
-                {/*<td><Modal show={this.state.categoryServicesShow} modalClosed={this.closeCategoryServicesHandler}>*/}
-                {/*<CategoryServices services={this.props.services}/>*/}
-                {/*</Modal></td>*/}
-                {/*<td><Modal show={this.state.categoryDiscountsShow} modalClosed={this.closeCategoryDiscountsHandler}>*/}
-                {/*<CategoryDiscounts discounts={this.props.discounts}/>*/}
-                {/*</Modal></td>*/}
                 <td className="text-right">
                     <button type="button" className="close text-right" aria-label="Close"
                             onClick={this.props.deleteCategory}>
@@ -48,11 +41,5 @@ class Category extends Component {
     };
 }
 
-// Category.propTypes = {
-//     id: PropTypes.number,
-//     categoryName: PropTypes.string,
-//     services: PropTypes.array,
-//     discounts: PropTypes.array,
-// };
 
 export default Category;

@@ -24,20 +24,38 @@ class Clients extends PureComponent {
                     <th>#</th>
                     <th>First Name</th>
                     <th>Last Name</th>
-                    <th colSpan={2}>Email</th>
+                    <th>Email</th>
+                    <th colSpan={2}>Car Plate</th>
                 </tr>
                 </thead>
                 <tbody>
                 {[ ...this.state.clients ].map((client, index) => {
                     return (
-                        <tr key={client.id}>
+                        <Aux key={client.id}>
+                        {this.props.isShown ?<tr onClick={() => this.props.clientClick(client)}>
                             <Client
                                 id={client.id}
                                 firstName={client.firstName}
                                 lastName={client.lastName}
                                 email={client.email}
+                                carPlate={client.carPlate}
+                                isShown={this.props.isShown}
+                                clicked={this.props.clientClick}
                                 deleteClient={() => deleteClientHandler(index)}/>
-                        </tr> )
+                        </tr> :
+                            <tr key={client.id}>
+                                <Client
+                                    id={client.id}
+                                    firstName={client.firstName}
+                                    lastName={client.lastName}
+                                    email={client.email}
+                                    carPlate={client.carPlate}
+                                    isShown={this.props.isShown}
+                                    clicked={this.props.clientClick}
+                                    deleteClient={() => deleteClientHandler(index)}/>
+                            </tr>
+                        }
+                        </Aux>)
                 })
                 }
                 </tbody>
