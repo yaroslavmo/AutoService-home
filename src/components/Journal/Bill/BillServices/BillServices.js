@@ -17,7 +17,7 @@ const BillServices = (props) => {
             </tr>
             </thead>
             <tbody>
-            {[ ...props.oreredServices].map((service, index) => {
+            {[ ...props.services].map((service, index) => {
                 return (
                     <tr key={service.serviceId}>
                         <Service

@@ -16,8 +16,8 @@ const Category = (props) => {
             <Aux>
                 <th scope='row'> {props.id} </th>
                 <td> {props.categoryName} </td>
-                <td><Button color="dark" disabled={!props.oreredServices.length > 0} onClick={() => {
-                    setModalContent(<CategoryServices services={props.oreredServices}/>);
+                <td><Button color="dark" disabled={!props.services.length > 0} onClick={() => {
+                    setModalContent(<CategoryServices services={props.services}/>);
                     props.modal();
                 }}>services</Button>{' '}</td>
                 <td>

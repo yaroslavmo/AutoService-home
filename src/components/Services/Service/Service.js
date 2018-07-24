@@ -2,12 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types'
 
 import Aux from '../../../hoc/Auxiliary';
+// import classes from './Sevice.css'
+import tooltipClasses from '../../../UI/ToolTip.css'
+
 
 
 const Service = function (props) {
     return (
         <Aux>
-            <th scope='row'> {props.id} </th>
+            <th className={tooltipClasses.tooltip}>...{props.id.slice(-2)} <span className={tooltipClasses.tooltiptext}>{props.id}</span></th>
             <td> {props.serviceName} </td>
             <td> {props.price} </td>
             {props.isModal ? <td style={{ textAlign: 'center' }}> {props.category} </td>
@@ -29,7 +32,7 @@ const Service = function (props) {
 };
 
 Service.propTypes = {
-    id: PropTypes.number,
+    id: PropTypes.string,
     name: PropTypes.string,
     price: PropTypes.number,
     categoryName: PropTypes.string,

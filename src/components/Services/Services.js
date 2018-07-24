@@ -1,20 +1,39 @@
 import React, { PureComponent } from 'react'
 
-import { services } from '../../db'
+// import { services } from '../../db'
 import Aux from "../../hoc/Auxiliary";
 import Service from "./Service/Service";
+import axios from "axios/index";
 
 
 class Services extends PureComponent {
     state = {
-        services: services
+        services: []
     };
 
+    componentDidMount() {
+        axios.get(`http://localhost:4000/services`)
+            .then(res => {
+                const services = res.data;
+                this.setState({ services: services });
+            })
+    }
+
     render() {
-        let deleteServiceHandler = (serviceIndex) => {
-            const services = [ ...this.state.services];
-            services.splice(serviceIndex, 1);
-            this.setState({ oreredServices: services });
+        let deleteServiceHandler = (e, id) => {
+                e.preventDefault();
+
+                axios.delete(`http://localhost:4000/services/${id}`)
+                    .then(res => {
+                        console.log(res);
+                        console.log(res.data);
+                    })
+                    .then(() => this.componentDidMount() )
+
+
+            // const services = [ ...this.state.services];
+            // services.splice(serviceIndex, 1);
+            // this.setState({ services: services });
         };
 
         return (
@@ -30,25 +49,25 @@ class Services extends PureComponent {
                 <tbody>
                 {[ ...this.state.services ].map((service, index) => {
                     return (
-                        <Aux key={service.id}>
+                        <Aux key={service._id}>
                             {this.props.isBuild ?<tr onClick={() => this.props.serviceClick(service)}>
                                         <Service
-                                            id={service.id}
+                                            id={service._id}
                                             serviceName={service.name}
                                             price={service.price}
                                             category={service.categoryName}
                                             isBuild={this.props.isBuild}
                                             currentButton={ this.props.currentButton}
-                                            deleteService={() => deleteServiceHandler(index)}
+                                            deleteService={(e) => deleteServiceHandler(e,service._id)}
                                         />
                                     </tr> :
-                                <tr key={service.id}>
+                                <tr key={service._id}>
                                     <Service
-                                        id={service.id}
+                                        id={service._id}
                                         serviceName={service.name}
                                         price={service.price}
                                         category={service.categoryName}
-                                        deleteService={() => deleteServiceHandler(index)}
+                                        deleteService={(e) => deleteServiceHandler(e,service._id)}
                                     />
                                 </tr>
                             }

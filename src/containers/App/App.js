@@ -42,7 +42,7 @@ class App extends PureComponent {
                         <Table hover className={classes.tableScroll}>
                             <Clients />
                             {/*<Journal showModal={showModalHandler} setModalContent={this.setModal}/>*/}
-                            {/*<Services />*/}
+                            <Services />
                             {/*<Categories showModal={showModalHandler} setModalContent={this.setModal}/>*/}
                             {/*<Discounts showModal={showModalHandler} setModalContent={this.setModal}/>*/}
                         </Table>

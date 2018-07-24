@@ -2,21 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types'
 
 import Aux from '../../../hoc/Auxiliary';
-import { UncontrolledTooltip } from "reactstrap";
-import ToolTip from "./IdToolTip";
+// import classes from './Client.css'
+import tooltipClasses from '../../../UI/ToolTip.css'
+
 
 
 const Client = function(props) {
         return (
             <Aux>
-                <ToolTip id={props.id.slice(-4)} tooltipContent={props.id}>{props.id.slice(-4)} </ToolTip>
-                {console.log(props.id)}
-
-
-                {/*<UncontrolledTooltip autohide={false} placement="bottom" target={props.id.slice(-4)}>*/}
-                    {/*{console.log(props.id)}*/}
-                    {/*{props.id}*/}
-                {/*</UncontrolledTooltip>*/}
+                <th className={tooltipClasses.tooltip}>...{props.id.slice(-2)} <span className={tooltipClasses.tooltiptext}>{props.id}</span></th>
                 <td> {props.firstName} </td>
                 <td> {props.lastName} </td>
                 <td> {props.email} </td>
