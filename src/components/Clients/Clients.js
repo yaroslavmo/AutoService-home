@@ -1,14 +1,23 @@
 import React, { PureComponent } from 'react'
 
 import Client from './Client/Client'
-import { clients } from '../../db'
+// import { clients } from '../../db'
 import Aux from "../../hoc/Auxiliary";
+import axios from 'axios';
 
 
 class Clients extends PureComponent {
     state = {
-        clients: clients
+        clients: []
     };
+
+    componentDidMount() {
+        axios.get(`http://localhost:4000/clients`)
+            .then(res => {
+                const clients = res.data;
+                this.setState({ clients: clients });
+            })
+    }
 
     render() {
         let deleteClientHandler = (clientIndex) => {
@@ -16,7 +25,6 @@ class Clients extends PureComponent {
             clients.splice(clientIndex, 1);
             this.setState({ clients: clients });
         };
-
         return (
             <Aux>
                 <thead>
@@ -31,10 +39,10 @@ class Clients extends PureComponent {
                 <tbody>
                 {[ ...this.state.clients ].map((client, index) => {
                     return (
-                        <Aux key={client.id}>
+                        <Aux key={client._id}>
                         {this.props.isShown ?<tr onClick={() => this.props.clientClick(client)}>
-                            <Client
-                                id={client.id}
+                                <Client
+                                id={client._id}
                                 firstName={client.firstName}
                                 lastName={client.lastName}
                                 email={client.email}
@@ -42,9 +50,9 @@ class Clients extends PureComponent {
                                 isShown={this.props.isShown}
                                 deleteClient={() => deleteClientHandler(index)}/>
                         </tr> :
-                            <tr key={client.id}>
-                                <Client
-                                    id={client.id}
+                            <tr key={client._id}>
+                                <Client client={client}
+                                    id={client._id}
                                     firstName={client.firstName}
                                     lastName={client.lastName}
                                     email={client.email}
