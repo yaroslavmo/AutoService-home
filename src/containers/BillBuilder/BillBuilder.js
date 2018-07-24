@@ -5,23 +5,27 @@ import {
     Form,
     FormGroup,
     Label,
-    Input,
-    FormFeedback,
     FormText,
     Button,
     Container,
-    UncontrolledCollapse, Table, Card, CardTitle, CardBody
+    UncontrolledCollapse, Table,
 } from 'reactstrap';
 import Clients from "../../components/Clients/Clients";
+import { services } from '../../db'
+import BillBuilderServices from "./BillBuilderServices/BillBuilderServices";
 
 
 class BillBuilder extends Component {
 
     state = {
-        client: null,
+        client: {},
+        orderedServices: [],
+        fadeIn:true,
+        currentButton: null,
+        serviceButtons:null,
         clientCollapsed: null,
         newClientCollapsed: null,
-        demo: {}
+        servicesBuild: true
     };
 
     toggleClients = () => {
@@ -29,20 +33,41 @@ class BillBuilder extends Component {
     };
     toggleNewClients = () => {
         this.setState({ newClientCollapsed: !this.state.newClientCollapsed });
-        this.setState({ client: null })
+        if (!this.state.newClientCollapsed === true) {
+            this.setState({ client: {} })
+        }
+
     };
 
     clientClick = (client) => {
         this.setState({ client: client });
     };
     deleteClient = () => {
-        this.setState({ client: null })
+        this.setState({ client: {} })
     };
-    setClient = (e) => {
-        this.setState({ demo: { [ e.target.name ]: e.target.value } });
-        console.log(this.state.demo);
+    setClient = ({ target: { name, value } }) => {
+        this.setState({
+            client: {
+                ...this.state.client,
+                [ name ]: value
+            }
+        });
     };
 
+    serviceClick = (service) => {
+        let servicesCopy = [ ...this.state.orderedServices ];
+        servicesCopy = new Set(servicesCopy);
+        servicesCopy.add(service);
+        servicesCopy = Array.from(servicesCopy);
+        this.setState({ orderedServices: servicesCopy });
+        console.log(this.state.orderedServices)
+    };
+
+    deleteServiceHandler = (service) => {
+        let servicesCopy = [ ...this.state.orderedServices ];
+        servicesCopy.splice(servicesCopy.indexOf(service), 1);
+        this.setState({ orderedServices: servicesCopy });
+    };
 
     render() {
         return (
@@ -68,29 +93,31 @@ class BillBuilder extends Component {
                                     id="newClientToggler" onClick={this.toggleNewClients}
                                     style={{ marginBottom: '1rem' }}>New client</Button>
                             <UncontrolledCollapse toggler="#newClientToggler">
-                                <Container className="text-center">
-                                    <input type="text" onBlur={this.setClient} className={classes.newClientInput}
-                                           required placeholder="id"
-                                           name="id"/>{/*onBlur={(e) => {this.setClient({ id:e.target.value })}}*/}
-                                    <input type="text" onBlur={this.setClient} className={classes.newClientInput}
-                                           required placeholder="First name" name="firstName"/>
-                                    <input type="text" onBlur={this.setClient} className={classes.newClientInput}
-                                           required placeholder="Last name" name="lastName"/>
-                                    <input type="text" onBlur={this.setClient} className={classes.newClientInput}
-                                           placeholder="Email" name="email"/>
-                                    <input type="text" onBlur={this.setClient} className={classes.newClientInput}
-                                           required placeholder="CarPlate" name="carPlate"/>
+                                <Container>
+                                    <Label>New Client:</Label>
+
+                                    <input type="text" onChange={this.setClient} className={classes.newClientInput}
+                                           required placeholder="First name" name="firstName"
+                                           value={this.state.client.firstName ? this.state.client.firstName : ''}/>
+                                    <input type="text" onChange={this.setClient} className={classes.newClientInput}
+                                           required placeholder="Last name" name="lastName"
+                                           value={this.state.client.lastName ? this.state.client.lastName : ''}/>
+                                    <input type="text" onChange={this.setClient} className={classes.newClientInput}
+                                           placeholder="Email" name="email"
+                                           value={this.state.client.email ? this.state.client.email : ''}/>
+                                    <input type="text" onChange={this.setClient} className={classes.newClientInput}
+                                           required placeholder="CarPlate" name="carPlate"
+                                           value={this.state.client.carPlate ? this.state.client.carPlate : ''}/>
+                                    <FormText>This will create new client.</FormText>
                                 </Container>
-                                <a color="dark" onClick={console.log(this.state.client)}>Save</a>
                             </UncontrolledCollapse>
                         </Container>
-                        {this.state.client ?
-                            <div>
+                        {Object.values(this.state.client).length !== 0 ?
+                            <Container>
                                 <strong>Client</strong>
                                 <Table className="flex">
                                     <tbody>
                                     <tr>
-                                        <td><strong>Id: </strong>{this.state.client.id}</td>
                                         <td><strong>First name: </strong>{this.state.client.firstName}</td>
                                         <td><strong>Last name: </strong>{this.state.client.lastName}</td>
                                         <td><strong>Email: </strong>{this.state.client.email}</td>
@@ -106,38 +133,28 @@ class BillBuilder extends Component {
                                     </tbody>
                                 </Table>
                                 <hr/>
-                            </div>
+                            </Container>
                             : null}
                     </FormGroup>
+
                     <FormGroup>
-                        <Label for="exampleEmail">Valid input</Label>
-                        <Input valid/>
-                        <FormFeedback valid>Sweet! that name is available</FormFeedback>
-                        <FormText>Example help text that remains unchanged.</FormText>
+                        {Object.values(this.state.client).length !== 0 ?
+                        <Container>
+                            <strong>Services</strong>
+                            <BillBuilderServices addService={this.serviceClick}
+                                                 deleteService={this.deleteServiceHandler}
+                                                 services={services}
+                            />
+                            <hr/>
+                        </Container>
+                        : null}
                     </FormGroup>
                     <FormGroup>
-                        <Label for="examplePassword">Invalid input</Label>
-                        <Input invalid/>
-                        <FormFeedback>Oh noes! that name is already taken</FormFeedback>
-                        <FormText>Example help text that remains unchanged.</FormText>
+                        <Label for="exampleEmail">Total: </Label>
+                        <Label> number</Label>
                     </FormGroup>
-                    <FormGroup>
-                        <Label for="exampleEmail">Input without validation</Label>
-                        <Input/>
-                        <FormFeedback tooltip>You will not be able to see this</FormFeedback>
-                        <FormText>Example help text that remains unchanged.</FormText>
-                    </FormGroup>
-                    <FormGroup>
-                        <Label for="exampleEmail">Valid input</Label>
-                        <Input valid/>
-                        <FormFeedback valid tooltip>Sweet! that name is available</FormFeedback>
-                        <FormText>Example help text that remains unchanged.</FormText>
-                    </FormGroup>
-                    <FormGroup>
-                        <Label for="examplePassword">Invalid input</Label>
-                        <Input invalid/>
-                        <FormFeedback tooltip>Oh noes! that name is already taken</FormFeedback>
-                        <FormText>Example help text that remains unchanged.</FormText>
+                    <FormGroup check row>
+                        <Button>Submit</Button>
                     </FormGroup>
                 </Form>
 

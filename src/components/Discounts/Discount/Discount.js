@@ -21,7 +21,7 @@ const Discount = function(props) {
 };
 
 Discount.propTypes = {
-    id: PropTypes.string,
+    id: PropTypes.number,
     name: PropTypes.string,
     amount: PropTypes.number,
 };

@@ -14,7 +14,7 @@ class Services extends PureComponent {
         let deleteServiceHandler = (serviceIndex) => {
             const services = [ ...this.state.services];
             services.splice(serviceIndex, 1);
-            this.setState({ services: services });
+            this.setState({ oreredServices: services });
         };
 
         return (
@@ -24,21 +24,35 @@ class Services extends PureComponent {
                     <th>#</th>
                     <th>Name</th>
                     <th>Price</th>
-                    <th colSpan={3}>Category</th>
+                    <th colSpan={2}>Category</th>
                 </tr>
                 </thead>
                 <tbody>
                 {[ ...this.state.services ].map((service, index) => {
                     return (
-                        <tr key={service.id}>
-                            <Service
-                                id={service.id}
-                                serviceName={service.name}
-                                price={service.price}
-                                category={service.categoryName}
-                                deleteService={() => deleteServiceHandler(index)}
-                            />
-                        </tr>
+                        <Aux key={service.id}>
+                            {this.props.isBuild ?<tr onClick={() => this.props.serviceClick(service)}>
+                                        <Service
+                                            id={service.id}
+                                            serviceName={service.name}
+                                            price={service.price}
+                                            category={service.categoryName}
+                                            isBuild={this.props.isBuild}
+                                            currentButton={ this.props.currentButton}
+                                            deleteService={() => deleteServiceHandler(index)}
+                                        />
+                                    </tr> :
+                                <tr key={service.id}>
+                                    <Service
+                                        id={service.id}
+                                        serviceName={service.name}
+                                        price={service.price}
+                                        category={service.categoryName}
+                                        deleteService={() => deleteServiceHandler(index)}
+                                    />
+                                </tr>
+                            }
+                        </Aux>
                     )
                 })
                 }

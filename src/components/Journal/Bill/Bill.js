@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 
 import Aux from '../../../hoc/Auxiliary';
 import { Button } from "reactstrap";
-import CategoryServices from "../../Categories/CategoryServices/CategoryServices";
+import BillServices from "./BillServices/BillServices";
 
 
 class Bill extends Component {
@@ -13,8 +13,7 @@ class Bill extends Component {
 
     render() {
         const setModalContent= () => {
-
-            this.props.setModal(<CategoryServices services={this.props.billServices}/>);
+            this.props.setModal(<BillServices services={this.props.billServices}/>);
         };
 
         return (

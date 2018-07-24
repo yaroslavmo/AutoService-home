@@ -14,7 +14,7 @@ const CategoryServices = (props) => {
             </tr>
             </thead>
             <tbody>
-            {[ ...props.services].map((service, index) => {
+            {[ ...props.oreredServices].map((service, index) => {
                 return (
                     <tr key={service.id}>
                         <Service

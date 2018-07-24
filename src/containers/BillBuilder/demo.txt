@@ -1,0 +1,40 @@
+<UncontrolledCollapse toggler="#newClientToggler">
+                                <Container>
+                                    <Label>New Client: </Label>
+                                    <InputGroup size="sm">
+                                        <InputGroupAddon addonType="prepend">
+                                            <InputGroupText>First name</InputGroupText>
+                                        </InputGroupAddon>
+                                        <input type="text" onChange={this.setClient} className={classes.newClientInput}
+                                               required placeholder="First name" name="firstName"
+                                               value={this.state.client.firstName ? this.state.client.firstName : ''}/>
+                                    </InputGroup>
+
+                                    <InputGroup size="sm">
+                                        <InputGroupAddon addonType="prepend">
+                                            <InputGroupText>Last name</InputGroupText>
+                                        </InputGroupAddon>
+                                        <input type="text" onChange={this.setClient} className={classes.newClientInput}
+                                               required placeholder="Last name" name="lastName"
+                                               value={this.state.client.lastName ? this.state.client.lastName : ''}/>
+                                    </InputGroup>
+                                    <InputGroup size="sm">
+                                        <InputGroupAddon addonType="prepend">
+                                            <InputGroupText>Email</InputGroupText>
+                                        </InputGroupAddon>
+                                        <input type="text" onChange={this.setClient} className={classes.newClientInput}
+                                               placeholder="Email" name="email"
+                                               value={this.state.client.email ? this.state.client.email : ''}/>
+                                    </InputGroup>
+                                    <InputGroup size="sm">
+                                        <InputGroupAddon addonType="prepend">
+                                            <InputGroupText>Car plate</InputGroupText>
+                                        </InputGroupAddon>
+                                        <input type="text" onChange={this.setClient} className={classes.newClientInput}
+                                               required placeholder="CarPlate" name="carPlate"
+                                               value={this.state.client.carPlate ? this.state.client.carPlate : ''}/>
+                                    </InputGroup>
+
+                                    <FormText >This will create new client.</FormText>
+                                </Container>
+                            </UncontrolledCollapse>

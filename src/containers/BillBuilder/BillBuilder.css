@@ -1,5 +1,5 @@
 .BillBuilder{
-    margin-top: 40px;
+    margin-top: 10px;
     padding: 10px;
     border: 2px solid #dee1e5;
 }
@@ -14,7 +14,8 @@
 .clientsTable tbody tr{
     cursor: pointer;
 }
+
+
 .newClientInput{
-    margin-right: 5px;
-    margin-left: 5px;
+    margin-right: 10px;
 }

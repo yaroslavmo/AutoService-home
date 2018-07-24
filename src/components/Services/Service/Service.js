@@ -4,19 +4,26 @@ import PropTypes from 'prop-types'
 import Aux from '../../../hoc/Auxiliary';
 
 
-const Service = function(props) {
+const Service = function (props) {
     return (
         <Aux>
             <th scope='row'> {props.id} </th>
             <td> {props.serviceName} </td>
             <td> {props.price} </td>
-            <td> {props.category} </td>
-            {props.isModal ? null : <td className="text-right">
+            {props.isModal ? <td style={{ textAlign: 'center' }}> {props.category} </td>
+                : <td> {props.category} </td>
+            }
+            {props.isModal || props.isBuild ? null
+                : <td className="text-right">
                 <button type="button" className="close text-right" aria-label="Close"
                         onClick={props.deleteService}>
                     <span aria-hidden="true">&times;</span>
                 </button>
             </td>}
+            {props.isBuild ? <td>{props.currentButton} </td>  : null}
+
+
+
         </Aux>
     )
 };

@@ -40,7 +40,6 @@ class Clients extends PureComponent {
                                 email={client.email}
                                 carPlate={client.carPlate}
                                 isShown={this.props.isShown}
-                                clicked={this.props.clientClick}
                                 deleteClient={() => deleteClientHandler(index)}/>
                         </tr> :
                             <tr key={client.id}>
@@ -50,8 +49,6 @@ class Clients extends PureComponent {
                                     lastName={client.lastName}
                                     email={client.email}
                                     carPlate={client.carPlate}
-                                    isShown={this.props.isShown}
-                                    clicked={this.props.clientClick}
                                     deleteClient={() => deleteClientHandler(index)}/>
                             </tr>
                         }

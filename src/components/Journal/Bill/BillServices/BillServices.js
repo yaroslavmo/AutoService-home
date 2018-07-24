@@ -1,7 +1,7 @@
 import React from 'react';
 import { Table } from "reactstrap";
 import classes from './billServices.css'
-import Service from '../../Services/Service/Service'
+import Service from '../../../Services/Service/Service'
 
 
 const BillServices = (props) => {
@@ -13,11 +13,11 @@ const BillServices = (props) => {
                 <th>#</th>
                 <th>Name</th>
                 <th>Price</th>
-                <th>categoryName</th>
+                <th style={{textAlign: 'center'}}>Category id</th>
             </tr>
             </thead>
             <tbody>
-            {[ ...props.services].map((service, index) => {
+            {[ ...props.oreredServices].map((service, index) => {
                 return (
                     <tr key={service.serviceId}>
                         <Service
