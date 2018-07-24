@@ -20,7 +20,8 @@ class BillBuilder extends Component {
     state = {
         client: null,
         clientCollapsed: null,
-        newClientCollapsed: null
+        newClientCollapsed: null,
+        demo: {}
     };
 
     toggleClients = () => {
@@ -28,7 +29,7 @@ class BillBuilder extends Component {
     };
     toggleNewClients = () => {
         this.setState({ newClientCollapsed: !this.state.newClientCollapsed });
-        this.setState({client:null})
+        this.setState({ client: null })
     };
 
     clientClick = (client) => {
@@ -37,15 +38,13 @@ class BillBuilder extends Component {
     deleteClient = () => {
         this.setState({ client: null })
     };
-    setClient = (client) => {
-        console.log(client);
-        this.setState({ client: client })
+    setClient = (e) => {
+        this.setState({ demo: { [ e.target.name ]: e.target.value } });
+        console.log(this.state.demo);
     };
 
 
     render() {
-
-// console.log(this.state.client)
         return (
             <Aux>
                 <Form className={classes.BillBuilder}>
@@ -70,14 +69,19 @@ class BillBuilder extends Component {
                                     style={{ marginBottom: '1rem' }}>New client</Button>
                             <UncontrolledCollapse toggler="#newClientToggler">
                                 <Container className="text-center">
-                                    <input type="text" className={classes.newClientInput} required placeholder="id"/>{/*onBlur={(e) => {this.setClient({ id:e.target.value })}}*/}
-                                    <input type="text" className={classes.newClientInput} required placeholder="First name"/>
-                                    <input type="text" className={classes.newClientInput} required placeholder="Last name"/>
-                                    <input type="text" className={classes.newClientInput} placeholder="Email"/>
-                                    <input type="text" className={classes.newClientInput} required placeholder="CarPlate"/>
-                                    <Button type="submit" color="dark" onClick={console.log(this.e)}>Save</Button>
-
+                                    <input type="text" onBlur={this.setClient} className={classes.newClientInput}
+                                           required placeholder="id"
+                                           name="id"/>{/*onBlur={(e) => {this.setClient({ id:e.target.value })}}*/}
+                                    <input type="text" onBlur={this.setClient} className={classes.newClientInput}
+                                           required placeholder="First name" name="firstName"/>
+                                    <input type="text" onBlur={this.setClient} className={classes.newClientInput}
+                                           required placeholder="Last name" name="lastName"/>
+                                    <input type="text" onBlur={this.setClient} className={classes.newClientInput}
+                                           placeholder="Email" name="email"/>
+                                    <input type="text" onBlur={this.setClient} className={classes.newClientInput}
+                                           required placeholder="CarPlate" name="carPlate"/>
                                 </Container>
+                                <a color="dark" onClick={console.log(this.state.client)}>Save</a>
                             </UncontrolledCollapse>
                         </Container>
                         {this.state.client ?

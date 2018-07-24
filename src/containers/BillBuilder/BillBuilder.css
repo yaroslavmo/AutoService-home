@@ -11,7 +11,7 @@
     width: 100%;
 }
 
-table tbody tr{
+.clientsTable tbody tr{
     cursor: pointer;
 }
 .newClientInput{
