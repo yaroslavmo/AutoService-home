@@ -9,6 +9,7 @@ import Categories from "../../components/Categories/Categories";
 import Modal from "../../UI/Modal/Modal";
 import Discounts from "../../components/Discounts/Discounts";
 import BillBuilder from "../BillBuilder/BillBuilder";
+import { BrowserRouter, Route } from 'react-router-dom'
 
 class App extends PureComponent {
     state = {
@@ -31,6 +32,7 @@ class App extends PureComponent {
 
 
         return (
+            <BrowserRouter>
             <div>
                 <Layout>
                     <Container>
@@ -40,9 +42,14 @@ class App extends PureComponent {
                         />
 
                         <Table hover className={classes.tableScroll}>
-                            <Clients />
+                            <Route path="/clients" component={Clients}/>
+                            <Route path="/journal" component={Journal}/>
+                            <Route path="/services" component={Services}/>
+                            <Route path="/categories" component={Categories}/>
+                            <Route path="/discounts" component={Discounts}/>
+                            {/*<Clients />*/}
                             {/*<Journal showModal={showModalHandler} setModalContent={this.setModal}/>*/}
-                            <Services />
+                            {/*<Services />*/}
                             {/*<Categories showModal={showModalHandler} setModalContent={this.setModal}/>*/}
                             {/*<Discounts showModal={showModalHandler} setModalContent={this.setModal}/>*/}
                         </Table>
@@ -50,6 +57,7 @@ class App extends PureComponent {
                     </Container>
                 </Layout>
             </div>
+            </BrowserRouter>
         );
     }
 }

@@ -6,25 +6,26 @@ import Aux from '../../../hoc/Auxiliary';
 import tooltipClasses from '../../../UI/ToolTip.css'
 
 
+const Client = function (props) {
+    return (
+        <Aux>
+            <th scope='row'>
+                <span className={tooltipClasses.tooltip}>...<span
+                    className={tooltipClasses.tooltiptext}>{props.id}</span></span>{props.id.slice(-2)} </th>
+            <td> {props.firstName} </td>
+            <td> {props.lastName} </td>
+            <td> {props.email} </td>
+            <td> {props.carPlate.toUpperCase()} </td>
+            {props.Builder ? null : <td className="text-right">
+                <button type="button" className="close text-right" aria-label="Close"
+                        onClick={props.deleteClient}>
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </td>}
 
-const Client = function(props) {
-        return (
-            <Aux>
-                <th className={tooltipClasses.tooltip}>...{props.id.slice(-2)} <span className={tooltipClasses.tooltiptext}>{props.id}</span></th>
-                <td> {props.firstName} </td>
-                <td> {props.lastName} </td>
-                <td> {props.email} </td>
-                <td> {props.carPlate.toUpperCase()} </td>
-                {props.isShown ? null : <td className="text-right">
-                    <button type="button" className="close text-right" aria-label="Close"
-                            onClick={props.deleteClient}>
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </td>}
-
-            </Aux>
-        )
-    };
+        </Aux>
+    )
+};
 
 Client.propTypes = {
     _id: PropTypes.string,

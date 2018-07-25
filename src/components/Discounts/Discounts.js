@@ -1,20 +1,34 @@
 import React, { PureComponent } from 'react'
 
 import Discount from './Discount/Discount'
-import { discounts } from '../../db'
+// import { discounts } from '../../db'
 import Aux from "../../hoc/Auxiliary";
+import axios from "axios/index";
+
 
 
 class Discounts extends PureComponent {
     state = {
-        discounts: discounts
+        discounts: []
     };
 
+    componentDidMount() {
+        axios.get(`http://localhost:4000/discounts`)
+            .then(res => {
+                const discounts = res.data;
+                this.setState({ discounts: discounts});
+            })
+    }
+
     render() {
-        let deleteDiscountHandler = (discountIndex) => {
-            const discounts = [ ...this.state.discounts ];
-            discounts.splice(discountIndex, 1);
-            this.setState({ discounts: discounts });
+        let deleteDiscountHandler = (e, id) => {
+            e.preventDefault();
+            axios.delete(`http://localhost:4000/discounts/${id}`)
+                .then(() => this.componentDidMount());
+
+            // const discounts = [ ...this.state.discounts ];
+            // discounts.splice(discountIndex, 1);
+            // this.setState({ discounts: discounts });
         };
 
         return (
@@ -27,14 +41,14 @@ class Discounts extends PureComponent {
                 </tr>
                 </thead>
                 <tbody>
-                {[ ...this.state.discounts ].map((discount, index) => {
+                {[ ...this.state.discounts ].map((discount) => {
                     return (
-                        <tr key={discount.id}>
+                        <tr key={discount._id}>
                             <Discount
-                                id={discount.id}
+                                id={discount._id}
                                 name={discount.name}
                                 amount={discount.amount}
-                                deleteDiscount={() => deleteDiscountHandler(index)}/>
+                                onDelete={(e) => deleteDiscountHandler(e, discount._id)}/>
                         </tr> )
                 })
                 }

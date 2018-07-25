@@ -84,7 +84,7 @@ class BillBuilder extends Component {
                                 <Container className="text-center">
                                     <Table hover id='billClient'
                                            className={[ "collapsed", classes.clientsTable ].join(' ')}>
-                                        <Clients isShown={this.state.clientCollapsed}
+                                        <Clients isBuilder={this.state.clientCollapsed}
                                                  clientClick={this.clientClick}/></Table>
                                 </Container>
                             </UncontrolledCollapse>

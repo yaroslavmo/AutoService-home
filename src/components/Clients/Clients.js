@@ -18,13 +18,18 @@ class Clients extends PureComponent {
                 this.setState({ clients: clients });
             })
     }
+    deleteClientHandler = (e, id) => {
+        e.preventDefault();
 
+        axios.delete(`http://localhost:4000/clients/${id}`)
+            .then(() => this.componentDidMount() )
+
+        // const clients = [ ...this.state.clients ];
+        // clients.splice(clientIndex, 1);
+        // this.setState({ clients: clients });
+    };
     render() {
-        let deleteClientHandler = (clientIndex) => {
-            const clients = [ ...this.state.clients ];
-            clients.splice(clientIndex, 1);
-            this.setState({ clients: clients });
-        };
+
         return (
             <Aux>
                 <thead>
@@ -40,15 +45,15 @@ class Clients extends PureComponent {
                 {[ ...this.state.clients ].map((client, index) => {
                     return (
                         <Aux key={client._id}>
-                        {this.props.isShown ?<tr onClick={() => this.props.clientClick(client)}>
+                        {this.props.isBuilder ?<tr onClick={() => this.props.clientClick(client)}>
                                 <Client
                                 id={client._id}
                                 firstName={client.firstName}
                                 lastName={client.lastName}
                                 email={client.email}
                                 carPlate={client.carPlate}
-                                isShown={this.props.isShown}
-                                deleteClient={() => deleteClientHandler(index)}/>
+                                isBuilder={this.props.isBuilder}
+                                deleteClient={(e) => this.deleteClientHandler(e, client._id)}/>
                         </tr> :
                             <tr key={client._id}>
                                 <Client client={client}
@@ -57,7 +62,7 @@ class Clients extends PureComponent {
                                     lastName={client.lastName}
                                     email={client.email}
                                     carPlate={client.carPlate}
-                                    deleteClient={() => deleteClientHandler(index)}/>
+                                    deleteClient={(e) => this.deleteClientHandler(e, client._id)}/>
                             </tr>
                         }
                         </Aux>)

@@ -1,20 +1,33 @@
 import React, { PureComponent } from 'react'
 
 import Bill from './Bill/Bill'
-import { journal } from '../../db'
 import Aux from "../../hoc/Auxiliary";
+import axios from "axios/index";
+
 
 
 class Journal extends PureComponent {
     state = {
-        journal: journal
+        bills: []
     };
 
+    componentDidMount() {
+        axios.get(`http://localhost:4000/journal`)
+            .then(res => {
+                const bills = res.data;
+                this.setState({ bills: bills});
+            })
+    }
+
     render() {
-        let deleteBillHandler = (billIndex) => {
-            const journal = [ ...this.state.journal ];
-            journal.splice(billIndex, 1);
-            this.setState({ journal: journal });
+        let deleteBillHandler = (e, id) => {
+                e.preventDefault();
+                axios.delete(`http://localhost:4000/journal/${id}`)
+                    .then(() => this.componentDidMount());
+
+                // const journal = [ ...this.state.journal ];
+            // journal.splice(billIndex, 1);
+            // this.setState({ journal: journal });
         };
 
         return (
@@ -29,16 +42,16 @@ class Journal extends PureComponent {
                 </tr>
                 </thead>
                 <tbody>
-                {[ ...this.state.journal ].map((bill, index) => {
+                {[ ...this.state.bills ].map((bill) => {
                     return (
-                            <tr key={bill.id}>
+                            <tr key={bill._id}>
                                 <Bill
-                                    id={bill.id}
+                                    id={bill._id}
                                     client={bill.billClientId}
                                     billServices={bill.billServices}
                                     total={bill.total}
                                     createdAt={bill.createdAt}
-                                    deleteBill={() => deleteBillHandler(index)}
+                                    deleteBill={(e) => deleteBillHandler(e, bill._id)}
                                     modal={this.props.showModal}
                                     setModal={this.props.setModalContent}
 

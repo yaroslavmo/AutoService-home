@@ -11,6 +11,7 @@ import {
     NavLink
 } from 'reactstrap';
 import PropTypes from 'prop-types'
+import { Link } from "react-router-dom";
 
 
 class NavBar extends React.Component {
@@ -40,22 +41,22 @@ class NavBar extends React.Component {
                     <Collapse isOpen={this.state.isOpen} navbar>
                         <Nav className="ml-auto" navbar>
                             <NavItem>
-                                <NavLink href="#">Bill Builder</NavLink>
+                                <NavLink tag={Link} to="/">Bill Builder</NavLink>
                             </NavItem>
                             <NavItem>
-                                <NavLink href="#">Journal</NavLink>
+                                <NavLink tag={Link} to="/journal">Journal</NavLink>
                             </NavItem>
                             <NavItem>
-                                <NavLink href="#">Clients</NavLink>
+                                <NavLink tag={Link} to="/clients">Clients</NavLink>
                             </NavItem>
                             <NavItem>
-                                <NavLink href="#">Services</NavLink>
+                                <NavLink tag={Link} to="/services">Services</NavLink>
                             </NavItem>
                             <NavItem>
-                                <NavLink href="#">Categories</NavLink>
+                                <NavLink tag={Link} to="/categories">Categories</NavLink>
                             </NavItem>
                             <NavItem>
-                                <NavLink href="#">Discounts</NavLink>
+                                <NavLink tag={Link} to="/discounts">Discounts</NavLink>
                             </NavItem>
                         </Nav>
                     </Collapse>

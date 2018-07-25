@@ -16,9 +16,9 @@ const CategoryServices = (props) => {
             <tbody>
             {[ ...props.services].map((service, index) => {
                 return (
-                    <tr key={service.id}>
+                    <tr key={service._id}>
                         <Service
-                            id={service.id}
+                            id={service._id}
                             serviceName={service.name}
                             price={service.price}
                             isModal={true}

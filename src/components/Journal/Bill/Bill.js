@@ -4,6 +4,8 @@ import React, { Component } from 'react';
 import Aux from '../../../hoc/Auxiliary';
 import { Button } from "reactstrap";
 import BillServices from "./BillServices/BillServices";
+import tooltipClasses from '../../../UI/ToolTip.css'
+
 
 
 class Bill extends Component {
@@ -18,9 +20,12 @@ class Bill extends Component {
 
         return (
             <Aux>
-                <th scope='row'> {this.props.id} </th>
+                <th scope='row' >
+                    <span className={tooltipClasses.tooltip}>...<span className={tooltipClasses.tooltiptext}>{this.props.id}</span></span>{this.props.id.slice(-2)} </th>
                 <td> {this.props.client} </td>
-                <td><Button color="dark" onClick={() => {
+                <td><Button color="dark"
+                            disabled={this.props.billServices.length <= 0}
+                            onClick={() => {
                     setModalContent();
                     this.props.modal();
                 }}>services</Button>{' '}</td>

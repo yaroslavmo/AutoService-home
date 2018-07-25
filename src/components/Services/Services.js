@@ -24,13 +24,7 @@ class Services extends PureComponent {
                 e.preventDefault();
 
                 axios.delete(`http://localhost:4000/services/${id}`)
-                    .then(res => {
-                        console.log(res);
-                        console.log(res.data);
-                    })
                     .then(() => this.componentDidMount() )
-
-
             // const services = [ ...this.state.services];
             // services.splice(serviceIndex, 1);
             // this.setState({ services: services });

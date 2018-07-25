@@ -3,7 +3,7 @@ import { Table } from "reactstrap";
 import Discount from "../../Discounts/Discount/Discount";
 
 
-const DiscountServices = (props) => {
+const CategoryDiscounts = (props) => {
     return (
         <Table size={'sm'} responsive>
             <thead>
@@ -16,9 +16,9 @@ const DiscountServices = (props) => {
             <tbody>
             {[ ...props.discounts].map((discount, index) => {
                 return (
-                    <tr key={discount.id}>
+                    <tr key={discount._id}>
                         <Discount
-                            id={discount.id}
+                            id={discount._id}
                             name={discount.name}
                             amount={discount.amount}
                             isModal={true}
@@ -33,4 +33,4 @@ const DiscountServices = (props) => {
     );
 };
 
-export default DiscountServices;
+export default CategoryDiscounts;
