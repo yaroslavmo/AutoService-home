@@ -5,7 +5,8 @@ import Aux from '../../../hoc/Auxiliary';
 import tooltipClasses from '../../../UI/ToolTip.css'
 
 
-const Discount = function (props) {
+const Discount = function ({ discount: { _id, name, amount}, onDelete, isModal }) {
+
     const discountAmountCheck = (number) => {
         let amount = 0;
         if (number <= 1 && number > 0) {
@@ -18,16 +19,15 @@ const Discount = function (props) {
 
         return amount;
     };
-
     return (
         <Aux>
             <th scope='row' >
-                <span className={tooltipClasses.tooltip}>...<span className={tooltipClasses.tooltiptext}>{props.id}</span></span>{props.id.slice(-2)} </th>
-            <td> {props.name} </td>
-            <td> {discountAmountCheck(props.amount)}%</td>
-            {props.isModal ? null : <td className="text-right">
+                <span className={tooltipClasses.tooltip}>...<span className={tooltipClasses.tooltiptext}>{_id}</span></span>{_id.slice(-2)} </th>
+            <td> {name} </td>
+            <td> {discountAmountCheck(amount)}%</td>
+            {isModal ? null : <td className="text-right">
                 <button type="button" className="close text-right" aria-label="Close"
-                        onClick={props.onDelete}>
+                        onClick={onDelete}>
                     <span aria-hidden="true">&times;</span>
                 </button>
             </td>}

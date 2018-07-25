@@ -44,10 +44,7 @@ class Discounts extends PureComponent {
                 {[ ...this.state.discounts ].map((discount) => {
                     return (
                         <tr key={discount._id}>
-                            <Discount
-                                id={discount._id}
-                                name={discount.name}
-                                amount={discount.amount}
+                            <Discount discount={discount}
                                 onDelete={(e) => deleteDiscountHandler(e, discount._id)}/>
                         </tr> )
                 })
