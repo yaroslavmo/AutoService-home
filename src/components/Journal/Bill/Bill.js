@@ -20,8 +20,9 @@ class Bill extends Component {
 
         return (
             <Aux>
-                <th scope='row' >
-                    <span className={tooltipClasses.tooltip}>...<span className={tooltipClasses.tooltiptext}>{this.props.id}</span></span>{this.props.id.slice(-2)} </th>
+                <th scope='row'>
+                <span className={tooltipClasses.tooltip}>...{this.props.id.slice(-2)}<span
+                    className={tooltipClasses.tooltiptext}>{this.props.id}</span></span></th>
                 <td> {this.props.client} </td>
                 <td><Button color="dark"
                             disabled={this.props.billServices.length <= 0}
@@ -33,7 +34,7 @@ class Bill extends Component {
                 <td> {new Date(this.props.createdAt).toLocaleString()} </td>
                 <td className="text-right">
                     <button type="button" className="close text-right" aria-label="Close"
-                            onClick={this.props.deleteBill}>
+                            onClick={this.props.onDelete}>
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </td>

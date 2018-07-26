@@ -19,16 +19,15 @@ class Services extends PureComponent {
             })
     }
 
-    render() {
-        let deleteServiceHandler = (e, id) => {
-                e.preventDefault();
+    deleteServiceHandler = (e, id) => {
+        e.preventDefault();
 
-                axios.delete(`http://localhost:4000/services/${id}`)
-                    .then(() => this.componentDidMount() )
-            // const services = [ ...this.state.services];
-            // services.splice(serviceIndex, 1);
-            // this.setState({ services: services });
-        };
+        axios.delete(`http://localhost:4000/services/${id}`)
+            .then(() => this.componentDidMount() )
+    };
+
+    render() {
+
 
         return (
             <Aux>
@@ -47,21 +46,16 @@ class Services extends PureComponent {
                             {this.props.isBuild ?<tr onClick={() => this.props.serviceClick(service)}>
                                         <Service
                                             id={service._id}
-                                            serviceName={service.name}
-                                            price={service.price}
-                                            category={service.categoryName}
+                                            service={service}
                                             isBuild={this.props.isBuild}
-                                            currentButton={ this.props.currentButton}
-                                            deleteService={(e) => deleteServiceHandler(e,service._id)}
+                                            deleteService={(e) => this.deleteServiceHandler(e,service._id)}
                                         />
                                     </tr> :
                                 <tr key={service._id}>
                                     <Service
                                         id={service._id}
-                                        serviceName={service.name}
-                                        price={service.price}
-                                        category={service.categoryName}
-                                        deleteService={(e) => deleteServiceHandler(e,service._id)}
+                                        service={service}
+                                        onDelete={(e) => this.deleteServiceHandler(e,service._id)}
                                     />
                                 </tr>
                             }

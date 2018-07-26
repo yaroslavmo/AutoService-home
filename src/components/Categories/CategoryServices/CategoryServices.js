@@ -19,8 +19,7 @@ const CategoryServices = (props) => {
                     <tr key={service._id}>
                         <Service
                             id={service._id}
-                            serviceName={service.name}
-                            price={service.price}
+                            service={service}
                             isModal={true}
                         />
                     </tr>

@@ -19,12 +19,10 @@ const BillServices = (props) => {
             <tbody>
             {[ ...props.services].map((service, index) => {
                 return (
-                    <tr key={service.serviceId}>
+                    <tr key={service._id}>
                         <Service
-                            id={service.serviceId}
-                            serviceName={service.name}
-                            price={service.price}
-                            category={service.categoryName}
+                            id={service._id}
+                            service={service}
                             isModal={true}
                         />
                     </tr>

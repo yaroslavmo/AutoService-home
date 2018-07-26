@@ -11,7 +11,6 @@ import {
     UncontrolledCollapse, Table,
 } from 'reactstrap';
 import Clients from "../../components/Clients/Clients";
-import { services } from '../../db'
 import BillBuilderServices from "./BillBuilderServices/BillBuilderServices";
 
 
@@ -121,7 +120,7 @@ class BillBuilder extends Component {
                                         <td><strong>First name: </strong>{this.state.client.firstName}</td>
                                         <td><strong>Last name: </strong>{this.state.client.lastName}</td>
                                         <td><strong>Email: </strong>{this.state.client.email}</td>
-                                        <td><strong>Car: </strong>{this.state.client.carPlate ?
+                                        <td><strong>Car Plate: </strong>{this.state.client.carPlate ?
                                             this.state.client.carPlate.toUpperCase() : null}</td>
                                         <td className="text-right">
                                             <button type="button" className="close text-right" aria-label="Close"
@@ -143,7 +142,6 @@ class BillBuilder extends Component {
                             <strong>Services</strong>
                             <BillBuilderServices addService={this.serviceClick}
                                                  deleteService={this.deleteServiceHandler}
-                                                 services={services}
                             />
                             <hr/>
                         </Container>

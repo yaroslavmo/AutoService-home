@@ -22,7 +22,7 @@ const Discount = function ({ discount: { _id, name, amount}, onDelete, isModal }
     return (
         <Aux>
             <th scope='row' >
-                <span className={tooltipClasses.tooltip}>...<span className={tooltipClasses.tooltiptext}>{_id}</span></span>{_id.slice(-2)} </th>
+                <span className={tooltipClasses.tooltip}>...{_id.slice(-2)}<span className={tooltipClasses.tooltiptext}>{_id}</span></span></th>
             <td> {name} </td>
             <td> {discountAmountCheck(amount)}%</td>
             {isModal ? null : <td className="text-right">

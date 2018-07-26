@@ -2,23 +2,26 @@ import React from 'react';
 import PropTypes from 'prop-types'
 
 import Aux from '../../../hoc/Auxiliary';
-// import classes from './Client.css'
+import classes from './Client.css'
 import tooltipClasses from '../../../UI/ToolTip.css'
 
 
 const Client = function (props) {
+    const { firstName, lastName, email, carPlate } = props.client;
+    const {id} = props;
+    const {onDelete} = props;
     return (
         <Aux>
             <th scope='row'>
-                <span className={tooltipClasses.tooltip}>...<span
-                    className={tooltipClasses.tooltiptext}>{props.id}</span></span>{props.id.slice(-2)} </th>
-            <td> {props.firstName} </td>
-            <td> {props.lastName} </td>
-            <td> {props.email} </td>
-            <td> {props.carPlate.toUpperCase()} </td>
+                <span className={tooltipClasses.tooltip}>...{id.slice(-2)}<span
+                    className={tooltipClasses.tooltiptext}>{id}</span></span> </th>
+            <td> {firstName} </td>
+            <td> {lastName} </td>
+            <td> {email} </td>
+            <td> {carPlate.toUpperCase()} </td>
             {props.Builder ? null : <td className="text-right">
-                <button type="button" className="close text-right" aria-label="Close"
-                        onClick={props.deleteClient}>
+                <button type="button" className={["close", "text-right", classes.deletebtn].join(' ')} aria-label="Close"
+                        onClick={onDelete}>
                     <span aria-hidden="true">&times;</span>
                 </button>
             </td>}

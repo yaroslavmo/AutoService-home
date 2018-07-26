@@ -44,17 +44,11 @@ class App extends PureComponent {
                         <Table hover className={classes.tableScroll}>
                             <Route path="/clients" exact component={Clients}/>
                             <Route path="/journal" exact render={()=><Journal showModal={showModalHandler} setModalContent={this.setModal}/>}/>
-                            <Route path="/services" exact render={()=><Categories showModal={showModalHandler} setModalContent={this.setModal}/>}/>
-                            <Route path="/categories" exact component={Categories}/>
+                            <Route path="/categories" exact render={()=><Categories showModal={showModalHandler} setModalContent={this.setModal}/>}/>
+                            <Route path="/services" exact component={Services}/>
                             <Route path="/discounts" exact render={() => <Discounts showModal={showModalHandler} setModalContent={this.setModal}/>}/>
-                            {/*<Clients />*/}
-                            {/*<Journal showModal={showModalHandler} setModalContent={this.setModal}/>*/}
-                            {/*<Services />*/}
-                            {/*<Categories showModal={showModalHandler} setModalContent={this.setModal}/>*/}
-                            {/*<Discounts showModal={showModalHandler} setModalContent={this.setModal}/>*/}
                         </Table>
                         <Route path="/" exact component={BillBuilder}/>
-                        {/*<BillBuilder/>*/}
                     </Container>
                 </Layout>
             </div>

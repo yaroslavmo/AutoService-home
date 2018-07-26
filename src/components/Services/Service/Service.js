@@ -7,25 +7,25 @@ import tooltipClasses from '../../../UI/ToolTip.css'
 
 
 const Service = function (props) {
+    const { serviceName, price, category } = props.service;
+    const { id } = props;
     return (
         <Aux>
             <th scope='row'>
-                <span className={tooltipClasses.tooltip}>...<span
-                    className={tooltipClasses.tooltiptext}>{props.id}</span></span>{props.id.slice(-2)} </th>
-            <td> {props.serviceName} </td>
-            <td> {props.price} </td>
-            {props.isModal ? <td style={{ textAlign: 'center' }}> {props.category} </td>
-                : <td> {props.category} </td>
+                <span className={tooltipClasses.tooltip}>...{id.slice(-2)}<span
+                    className={tooltipClasses.tooltiptext}>{id}</span></span></th>
+            <td> {serviceName} </td>
+            <td> {price} </td>
+            {props.isModal ? <td style={{ textAlign: 'center' }}> {category ? category.categoryName : null} </td>
+                : <td> {category ? category.categoryName : null} </td>
             }
             {props.isModal || props.isBuild ? null
                 : <td className="text-right">
                     <button type="button" className="close text-right" aria-label="Close"
-                            onClick={props.deleteService}>
+                            onClick={props.onDelete}>
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </td>}
-            {props.isBuild ? <td>{props.currentButton} </td> : null}
-
 
         </Aux>
     )

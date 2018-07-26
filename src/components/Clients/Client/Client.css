@@ -12,3 +12,7 @@
         width: 450px;
     }
 }
+
+.deletebtn:focus {
+    outline: 1px solid #04c37a;
+}

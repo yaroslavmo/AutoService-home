@@ -20,17 +20,17 @@ class Categories extends PureComponent {
                 this.setState({ categories: categories});
             })
     }
+    deleteCategoryHandler = (e, id) => {
+        e.preventDefault()
 
+        axios.delete(`http://localhost:4000/categories/${id}`)
+            .then(() => this.componentDidMount())
+        // const categories = [ ...this.state.categories ];
+        // categories.splice(categoryIndex, 1);
+        // this.setState({ categories: categories });
+    };
     render() {
-        let deleteCategoryHandler = (e, id) => {
-            e.preventDefault()
 
-            axios.delete(`http://localhost:4000/categories/${id}`)
-                .then(() => this.componentDidMount())
-            // const categories = [ ...this.state.categories ];
-            // categories.splice(categoryIndex, 1);
-            // this.setState({ categories: categories });
-        };
 
         return (
             <Aux>
@@ -47,11 +47,9 @@ class Categories extends PureComponent {
                     return (
                         <tr key={category._id}>
                             <Category
+                                category={category}
                                 id={category._id}
-                                categoryName={category.categoryName}
-                                services={category.categoryServices}
-                                discounts={category.discounts}
-                                deleteCategory={() => deleteCategoryHandler(index)}
+                                onDelete={(e) => this.deleteCategoryHandler(e, category._id)}
                                 modal={this.props.showModal}
                                 setModal={this.props.setModalContent}
                             />

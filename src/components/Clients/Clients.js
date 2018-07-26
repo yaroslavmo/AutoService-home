@@ -45,24 +45,17 @@ class Clients extends PureComponent {
                 {[ ...this.state.clients ].map((client, index) => {
                     return (
                         <Aux key={client._id}>
-                        {this.props.isBuilder ?<tr onClick={() => this.props.clientClick(client)}>
+                        {this.props.isBuilder ? <tr onClick={() => this.props.clientClick(client)}>
                                 <Client
                                 id={client._id}
-                                firstName={client.firstName}
-                                lastName={client.lastName}
-                                email={client.email}
-                                carPlate={client.carPlate}
+                                client={client}
                                 isBuilder={this.props.isBuilder}
-                                deleteClient={(e) => this.deleteClientHandler(e, client._id)}/>
+                                onDelete={(e) => this.deleteClientHandler(e, client._id)}/>
                         </tr> :
                             <tr key={client._id}>
                                 <Client client={client}
                                     id={client._id}
-                                    firstName={client.firstName}
-                                    lastName={client.lastName}
-                                    email={client.email}
-                                    carPlate={client.carPlate}
-                                    deleteClient={(e) => this.deleteClientHandler(e, client._id)}/>
+                                    onDelete={(e) => this.deleteClientHandler(e, client._id)}/>
                             </tr>
                         }
                         </Aux>)

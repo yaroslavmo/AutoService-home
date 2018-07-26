@@ -24,10 +24,6 @@ class Journal extends PureComponent {
                 e.preventDefault();
                 axios.delete(`http://localhost:4000/journal/${id}`)
                     .then(() => this.componentDidMount());
-
-                // const journal = [ ...this.state.journal ];
-            // journal.splice(billIndex, 1);
-            // this.setState({ journal: journal });
         };
 
         return (
@@ -51,7 +47,7 @@ class Journal extends PureComponent {
                                     billServices={bill.billServices}
                                     total={bill.total}
                                     createdAt={bill.createdAt}
-                                    deleteBill={(e) => deleteBillHandler(e, bill._id)}
+                                    onDelete={(e) => deleteBillHandler(e, bill._id)}
                                     modal={this.props.showModal}
                                     setModal={this.props.setModalContent}
 

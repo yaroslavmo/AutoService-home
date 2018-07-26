@@ -18,9 +18,7 @@ const CategoryDiscounts = (props) => {
                 return (
                     <tr key={discount._id}>
                         <Discount
-                            id={discount._id}
-                            name={discount.name}
-                            amount={discount.amount}
+                            discount={discount}
                             isModal={true}
                         />
                     </tr>
