@@ -1,34 +1,41 @@
-.Client {
-    width: 60%;
-    margin: 16px auto;
-    border: 1px solid #eee;
-    box-shadow: 0 2px 3px #ccc;
-    padding: 16px;
-    text-align: center;
-}
 
-@media (min-width: 500px) {
-    .Client{
-        width: 450px;
-    }
-}
 .tooltip {
     position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
 }
 
 .tooltip .tooltiptext {
     visibility: hidden;
-    background-color: #343a40;
+    background-color: black;
     color: #fff;
     text-align: center;
-
-    padding: 10px 10px;
-
-    /* Position the tooltip */
-    position: fixed;
+    border-radius: 6px;
+    padding: 7px;
+    position: absolute;
     z-index: 1;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -60px;
+
+
+    /* Fade in tooltip - takes 1 second to go from 0% to 100% opac: */
+    opacity: 0;
+    transition: opacity 1s;
+}
+
+.tooltip .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 25%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: black transparent transparent transparent;
 }
 
 .tooltip:hover .tooltiptext {
     visibility: visible;
+    opacity: 1;
 }

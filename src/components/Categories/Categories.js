@@ -39,11 +39,11 @@ class Categories extends PureComponent {
                     <th>#</th>
                     <th>Name</th>
                     <th>Services</th>
-                    <th colSpan={3}>Discounts</th>
+                    <th colSpan={3}>Discount</th>
                 </tr>
                 </thead>
                 <tbody>
-                {[ ...this.state.categories ].map((category, index) => {
+                {[ ...this.state.categories ].map((category) => {
                     return (
                         <tr key={category._id}>
                             <Category

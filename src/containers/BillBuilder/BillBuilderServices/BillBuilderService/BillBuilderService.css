@@ -1,4 +1,5 @@
 .deleteButton{
+    z-index: 500;
     background: Transparent no-repeat;
     border: none;
     cursor:pointer;
@@ -8,6 +9,9 @@
     align-content: center;
     height: 30px;
     width: 40px;
+}
+.deleteButton:focus{
+    outline: none;
 }
 .deleteButton img{
     height: 100%;
@@ -19,6 +23,7 @@
 }
 
 .addButton{
+    z-index: 500;
     height: 30px;
     width: 40px;
     background: Transparent no-repeat;
@@ -28,4 +33,7 @@
     cursor:pointer;
     overflow: hidden;
     outline:none;
+}
+.addButton:focus{
+    outline: none;
 }

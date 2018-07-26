@@ -11,6 +11,7 @@ import {
 } from 'reactstrap';
 import PropTypes from 'prop-types'
 import { Link } from "react-router-dom";
+import classes from './NavBar.css'
 
 
 class NavBar extends React.Component {
@@ -40,7 +41,7 @@ class NavBar extends React.Component {
                     <Collapse isOpen={this.state.isOpen} navbar>
                         <Nav className="ml-auto" navbar>
                             <NavItem>
-                                <NavLink  tag={Link} to="/">Bill Builder</NavLink>
+                                <NavLink tag={Link} to="/">Bill Builder</NavLink>
                             </NavItem>
                             <NavItem>
                                 <NavLink tag={Link} to="/journal">Journal</NavLink>

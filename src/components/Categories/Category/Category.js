@@ -3,11 +3,11 @@ import React from 'react';
 import Aux from '../../../hoc/Auxiliary';
 import { Button } from "reactstrap";
 import CategoryServices from "../CategoryServices/CategoryServices";
-import CategoryDiscounts from "../DiscountsServices/CategoryDiscounts";
+import CategoryDiscount from "../DiscountsServices/CategoryDiscount";
 import tooltipClasses from '../../../UI/ToolTip.css'
 
 const Category = (props) => {
-const { categoryName, categoryServices, discounts } = props.category
+const { categoryName, categoryServices, discount } = props.category
 const { id } = props
 
 
@@ -25,10 +25,10 @@ const { id } = props
                 props.modal();
             }}>services</Button>{' '}</td>
             <td>
-                <Button color="dark" disabled={!discounts} onClick={() => {
-                    setModalContent(<CategoryDiscounts discounts={discounts}/>);
+                <Button color="dark" disabled={!discount} onClick={() => {
+                    setModalContent(<CategoryDiscount discount={discount}/>);
                     props.modal();
-                }}>discounts
+                }}>discount
                 </Button>{' '}</td>
             <td className="text-right">
                 <button type="button" className="close text-right" aria-label="Close"

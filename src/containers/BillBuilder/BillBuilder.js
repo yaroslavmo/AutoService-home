@@ -8,151 +8,213 @@ import {
     FormText,
     Button,
     Container,
-    UncontrolledCollapse, Table,
+    Table, Collapse, Fade,
 } from 'reactstrap';
 import Clients from "../../components/Clients/Clients";
 import BillBuilderServices from "./BillBuilderServices/BillBuilderServices";
-import { Collapse } from "bootstrap";
+import axios from "axios";
 
 
 class BillBuilder extends Component {
 
     state = {
         client: {},
+        isNewClient: true,
         orderedServices: [],
-        clientCollapsed: null,
-        newClientCollapsed: null,
+        servicesFadeIn: false,
+        clientCollapsed: false,
+        newClientCollapsed: false,
+        total: 0
     };
 
     toggleClients = () => {
-        this.setState({ clientCollapsed: !this.state.clientCollapsed });
+        this.setState({ clientCollapsed: !this.state.clientCollapsed, isNewClient: false });
+        console.log(this.state.isNewClient)
     };
+
     toggleNewClients = () => {
         this.setState({ newClientCollapsed: !this.state.newClientCollapsed });
         if (!this.state.newClientCollapsed === true) {
-            this.setState({ client: {} })
+            this.setState({ client: {}, isNewClient: true, servicesFadeIn: false })
         }
+        console.log(this.state.isNewClient)
+
 
     };
 
     clientClick = (client) => {
-        this.setState({ client: client });
+        this.setState({ client: client, servicesFadeIn: true });
         this.toggleClients();
     };
+
     deleteClient = () => {
-        this.setState({ client: {} })
+        this.setState({ client: {}, servicesFadeIn: false })
     };
+
+
     setClient = ({ target: { name, value } }) => {
         this.setState({
             client: {
                 ...this.state.client,
                 [ name ]: value
-            }
+            }, servicesFadeIn: true
         });
     };
 
-    serviceClick = (service) => {
+
+    serviceAddClick = (service) => {
         let servicesCopy = [ ...this.state.orderedServices ];
-        servicesCopy = new Set(servicesCopy);
-        servicesCopy.add(service);
-        servicesCopy = Array.from(servicesCopy);
-        this.setState({ orderedServices: servicesCopy });
-        console.log(this.state.orderedServices)
+        servicesCopy.push(service);
+        servicesCopy = Array.from(new Set(servicesCopy));
+        // this.countTotal();
+        this.setState({ orderedServices: servicesCopy }, () => this.setState({ total: this.countTotal() }));
     };
+
+    // componentDidUpdate(){
+    //     this.countTotal()
+    // }
 
     deleteServiceHandler = (service) => {
         let servicesCopy = [ ...this.state.orderedServices ];
-        servicesCopy.splice(servicesCopy.indexOf(service), 1);
-        this.setState({ orderedServices: servicesCopy });
+        let index = servicesCopy.indexOf(service);
+        servicesCopy.splice(index, 1);
+        this.setState({ orderedServices: [ ...servicesCopy ] }, () => this.setState({ total: this.countTotal() }));
     };
+
+
+    countTotal = () => {
+        let orderedServices = [ ...this.state.orderedServices ];
+        orderedServices.forEach((service) => {
+        });
+        let total = orderedServices.reduce((total, num) => total + ( num.price || 0 ), 0);
+        // this.setState({ total: total });
+        return total;
+    };
+
+    submitBill = () => {
+        let formBillData = new FormData();
+
+
+        axios({
+            method: 'post',
+            url: '/journal',
+            data: formBillData,
+            config: { headers: { 'Content-Type': 'multipart/form-data' } }
+        })
+            .then(function (response) {
+                //handle success
+                console.log(response);
+            })
+            .catch(function (response) {
+                //handle error
+                console.log(response);
+            });
+    };
+
 
     render() {
         return (
             <Aux>
-                <Form className={classes.BillBuilder}>
-                    <FormGroup>
-                        <Container className='text-center' id="collapseHelper">
-                            <Button disabled={this.state.newClientCollapsed} className='row col' color="dark"
-                                    id="clientsToggler" onClick={this.toggleClients}
-                                    style={{ marginBottom: '1rem' }}>
-                                Existing client
-                            </Button>
-                            <Collapse isOpen={this.state.clientCollapsed} toggler="#clientsToggler">
-                                <Container className="text-center">
-                                    <Table hover id='billClient'
-                                           className={[ "collapsed", classes.clientsTable ].join(' ')}>
-                                        <Clients isBuilder={true}
-                                                 clientClick={this.clientClick}/></Table>
-                                </Container>
-                            </Collapse>
+                <Fade in={true} timeout={200} className="mt-3">
+                    <Form className={classes.BillBuilder}>
+                        <FormGroup>
+                            <Container className='text-center'>
+                                <Button disabled={this.state.newClientCollapsed} className='row col' color="dark"
+                                        onClick={this.toggleClients}
+                                        style={{ marginBottom: '1rem' }}>
+                                    Existing client
+                                </Button>
+                                <Fade in={this.state.clientCollapsed} timeout={150} className="mt-3">
+                                    <Collapse isOpen={this.state.clientCollapsed}>
+                                        <Container className="text-center">
+                                            <Table hover id='Clients'
+                                                   className={[ "", classes.clientsTable ].join(' ')}>
+                                                <Clients isBuilder={true}
+                                                         clientClick={this.clientClick}/></Table>
+                                        </Container>
+                                    </Collapse>
+                                </Fade>
 
-                            <Button disabled={this.state.clientCollapsed} className='row col' color="dark"
-                                    id="newClientToggler" onClick={this.toggleNewClients}
-                                    style={{ marginBottom: '1rem' }}>New client</Button>
-                            <Collapse isOpen={this.state.newClientCollapsed} toggler="#newClientToggler">
-                                <Container>
-                                    <Label>New Client:</Label>
 
-                                    <input type="text" onChange={this.setClient} className={classes.newClientInput}
-                                           required placeholder="First name" name="firstName"
-                                           value={this.state.client.firstName ? this.state.client.firstName : ''}/>
-                                    <input type="text" onChange={this.setClient} className={classes.newClientInput}
-                                           required placeholder="Last name" name="lastName"
-                                           value={this.state.client.lastName ? this.state.client.lastName : ''}/>
-                                    <input type="text" onChange={this.setClient} className={classes.newClientInput}
-                                           placeholder="Email" name="email"
-                                           value={this.state.client.email ? this.state.client.email : ''}/>
-                                    <input type="text" onChange={this.setClient} className={classes.newClientInput}
-                                           required placeholder="CarPlate" name="carPlate"
-                                           value={this.state.client.carPlate ? this.state.client.carPlate : ''}/>
-                                    <FormText>This will create new client.</FormText>
-                                </Container>
-                            </Collapse>
-                        </Container>
-                        {Object.values(this.state.client).length !== 0 ?
-                            <Container>
-                                <strong>Client</strong>
-                                <Table className="flex">
-                                    <tbody>
-                                    <tr>
-                                        <td><strong>First name: </strong>{this.state.client.firstName}</td>
-                                        <td><strong>Last name: </strong>{this.state.client.lastName}</td>
-                                        <td><strong>Email: </strong>{this.state.client.email}</td>
-                                        <td><strong>Car Plate: </strong>{this.state.client.carPlate ?
-                                            this.state.client.carPlate.toUpperCase() : null}</td>
-                                        <td className="text-right">
-                                            <button type="button" className="close text-right" aria-label="Close"
-                                                    onClick={this.deleteClient}>
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </Table>
-                                <hr/>
+                                <Button disabled={this.state.clientCollapsed} className='row col' color="dark"
+                                        onClick={this.toggleNewClients}
+                                        style={{ marginBottom: '1rem' }}>New client</Button>
+
+                                <Collapse isOpen={this.state.newClientCollapsed}>
+
+                                    <Container>
+                                        <Label>New Client:</Label>
+
+                                        <input type="text"
+                                               onChange={this.setClient} className={classes.newClientInput}
+                                               required placeholder="First name" name="firstName"
+                                               value={this.state.client.firstName ? this.state.client.firstName : ''}/>
+                                        <input type="text"
+                                               onChange={this.setClient} className={classes.newClientInput}
+                                               required placeholder="Last name" name="lastName"
+                                               value={this.state.client.lastName ? this.state.client.lastName : ''}/>
+                                        <input type="text"
+                                               onChange={this.setClient} className={classes.newClientInput}
+                                               placeholder="Email" name="email"
+                                               value={this.state.client.email ? this.state.client.email : ''}/>
+                                        <input type="text"
+                                               onChange={this.setClient} className={classes.newClientInput}
+                                               required placeholder="CarPlate" name="carPlate"
+                                               value={this.state.client.carPlate ? this.state.client.carPlate : ''}/>
+                                        <FormText>This will create new client.</FormText>
+                                    </Container>
+                                </Collapse>
                             </Container>
-                            : null}
-                    </FormGroup>
+                            {Object.values(this.state.client).length !== 0 ?
+                                <Fade in={Object.values(this.state.client).length !== 0} timeout={200} className="mt-3">
+                                    <Container>
+                                        <strong>Client</strong>
+                                        <Table className="flex">
+                                            <tbody>
+                                            <tr>
+                                                <td><strong>First name: </strong>{this.state.client.firstName}</td>
+                                                <td><strong>Last name: </strong>{this.state.client.lastName}</td>
+                                                <td><strong>Email: </strong>{this.state.client.email}</td>
+                                                <td><strong>Car Plate: </strong>{this.state.client.carPlate ?
+                                                    this.state.client.carPlate.toUpperCase() : null}</td>
+                                                <td className="text-right">
+                                                    <button type="button" className="close text-right"
+                                                            aria-label="Close"
+                                                            onClick={this.deleteClient}>
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </Table>
+                                        <hr/>
+                                    </Container>
+                                </Fade>
+                                : null}
+                        </FormGroup>
 
-                    <FormGroup>
-                        {Object.values(this.state.client).length !== 0 ?
-                        <Container>
-                            <strong>Services</strong>
-                            <BillBuilderServices addService={this.serviceClick}
-                                                 onDelete={this.deleteServiceHandler}
-                            />
-                            <hr/>
-                        </Container>
-                        : null}
-                    </FormGroup>
-                    <FormGroup>
-                        <Label for="exampleEmail">Total: </Label>
-                        <Label> number</Label>
-                    </FormGroup>
-                    <FormGroup check row>
-                        <Button>Submit</Button>
-                    </FormGroup>
-                </Form>
+                        <FormGroup>
+                            {Object.values(this.state.client).length >= 4 ?
+                                <Fade in={this.state.servicesFadeIn} timeout={200} className="mt-3">
+                                    <Container>
+                                        <strong>Services</strong>
+                                        <BillBuilderServices addService={this.serviceAddClick}
+                                                             onDelete={this.deleteServiceHandler}
+                                        />
+                                        <hr/>
+                                    </Container>
+                                </Fade>
+                                : null}
+                        </FormGroup>
+                        <FormGroup>
+                            <div style={{ display: "flex", alignItems: "center" }}><h1>Total: </h1>
+                                <h3 style={{ marginBottom: "0", marginLeft: "10px" }}> {this.state.total}</h3></div>
+                        </FormGroup>
+                        <FormGroup check row>
+                            <Button disabled={!this.state.total}>Create Bill</Button>
+                        </FormGroup>
+                    </Form>
+                </Fade>
 
             </Aux>
         );

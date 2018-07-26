@@ -38,14 +38,13 @@ class BillBuilderServices extends Component{
             <tbody>
             {this.state.services.map((service) => {
                 return (
-                    <tr key={service._id} onClick={() => this.props.addService(service)}>
                         <BillBuilderService
+                            key={service._id}
                             service={service}
                             id={service._id}
                             addBillService={this.addService}
                             deleteBillService={this.deleteService}
                         />
-                    </tr>
                 )
             })
             }
