@@ -50,7 +50,7 @@ class Clients extends PureComponent {
                                 id={client._id}
                                 client={client}
                                 isBuilder={this.props.isBuilder}
-                                onDelete={(e) => this.deleteClientHandler(e, client._id)}/>
+                                />
                         </tr> :
                             <tr key={client._id}>
                                 <Client client={client}

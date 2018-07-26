@@ -19,7 +19,7 @@ const Client = function (props) {
             <td> {lastName} </td>
             <td> {email} </td>
             <td> {carPlate.toUpperCase()} </td>
-            {props.Builder ? null : <td className="text-right">
+            {props.isBuilder ? null : <td className="text-right">
                 <button type="button" className={["close", "text-right", classes.deletebtn].join(' ')} aria-label="Close"
                         onClick={onDelete}>
                     <span aria-hidden="true">&times;</span>

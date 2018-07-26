@@ -23,7 +23,7 @@ class Services extends PureComponent {
         e.preventDefault();
 
         axios.delete(`http://localhost:4000/services/${id}`)
-            .then(() => this.componentDidMount() )
+            .then(() => this.componentDidMount())
     };
 
     render() {
@@ -42,24 +42,14 @@ class Services extends PureComponent {
                 <tbody>
                 {[ ...this.state.services ].map((service, index) => {
                     return (
-                        <Aux key={service._id}>
-                            {this.props.isBuild ?<tr onClick={() => this.props.serviceClick(service)}>
-                                        <Service
-                                            id={service._id}
-                                            service={service}
-                                            isBuild={this.props.isBuild}
-                                            deleteService={(e) => this.deleteServiceHandler(e,service._id)}
-                                        />
-                                    </tr> :
-                                <tr key={service._id}>
-                                    <Service
-                                        id={service._id}
-                                        service={service}
-                                        onDelete={(e) => this.deleteServiceHandler(e,service._id)}
-                                    />
-                                </tr>
-                            }
-                        </Aux>
+                        <tr key={service._id}>
+                            <Service
+                                id={service._id}
+                                service={service}
+                                onDelete={(e) => this.deleteServiceHandler(e, service._id)}
+                            />
+                        </tr>
+
                     )
                 })
                 }

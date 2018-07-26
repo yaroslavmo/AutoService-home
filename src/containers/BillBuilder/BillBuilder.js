@@ -12,6 +12,7 @@ import {
 } from 'reactstrap';
 import Clients from "../../components/Clients/Clients";
 import BillBuilderServices from "./BillBuilderServices/BillBuilderServices";
+import { Collapse } from "bootstrap";
 
 
 class BillBuilder extends Component {
@@ -19,12 +20,8 @@ class BillBuilder extends Component {
     state = {
         client: {},
         orderedServices: [],
-        fadeIn:true,
-        currentButton: null,
-        serviceButtons:null,
         clientCollapsed: null,
         newClientCollapsed: null,
-        servicesBuild: true
     };
 
     toggleClients = () => {
@@ -40,6 +37,7 @@ class BillBuilder extends Component {
 
     clientClick = (client) => {
         this.setState({ client: client });
+        this.toggleClients();
     };
     deleteClient = () => {
         this.setState({ client: {} })
@@ -79,19 +77,19 @@ class BillBuilder extends Component {
                                     style={{ marginBottom: '1rem' }}>
                                 Existing client
                             </Button>
-                            <UncontrolledCollapse toggler="#clientsToggler">
+                            <Collapse isOpen={this.state.clientCollapsed} toggler="#clientsToggler">
                                 <Container className="text-center">
                                     <Table hover id='billClient'
                                            className={[ "collapsed", classes.clientsTable ].join(' ')}>
-                                        <Clients isBuilder={this.state.clientCollapsed}
+                                        <Clients isBuilder={true}
                                                  clientClick={this.clientClick}/></Table>
                                 </Container>
-                            </UncontrolledCollapse>
+                            </Collapse>
 
                             <Button disabled={this.state.clientCollapsed} className='row col' color="dark"
                                     id="newClientToggler" onClick={this.toggleNewClients}
                                     style={{ marginBottom: '1rem' }}>New client</Button>
-                            <UncontrolledCollapse toggler="#newClientToggler">
+                            <Collapse isOpen={this.state.newClientCollapsed} toggler="#newClientToggler">
                                 <Container>
                                     <Label>New Client:</Label>
 
@@ -109,7 +107,7 @@ class BillBuilder extends Component {
                                            value={this.state.client.carPlate ? this.state.client.carPlate : ''}/>
                                     <FormText>This will create new client.</FormText>
                                 </Container>
-                            </UncontrolledCollapse>
+                            </Collapse>
                         </Container>
                         {Object.values(this.state.client).length !== 0 ?
                             <Container>
@@ -141,7 +139,7 @@ class BillBuilder extends Component {
                         <Container>
                             <strong>Services</strong>
                             <BillBuilderServices addService={this.serviceClick}
-                                                 deleteService={this.deleteServiceHandler}
+                                                 onDelete={this.deleteServiceHandler}
                             />
                             <hr/>
                         </Container>

@@ -18,40 +18,47 @@ class App extends PureComponent {
     };
 
     setModal = (modalContent) => {
-        let copy = {...this.state};
+        let copy = { ...this.state };
         copy.modalContent = modalContent;
         this.setState(copy);
     };
     closeModalHandler = () => {
         this.setState({ showModal: false })
     };
+
+    showModalHandler = () => {
+        this.setState({ showModal: true })
+    };
+
     render() {
-        const showModalHandler = () => {
-            this.setState({ showModal: true })
-        };
+
 
 
         return (
             <BrowserRouter>
-            <div>
-                <Layout>
-                    <Container>
-                        <Modal show={this.state.showModal}
-                               modalClosed={this.closeModalHandler}
-                               modalContent={this.state.modalContent}
-                        />
+                <div>
+                    <Layout>
+                        <Container>
+                            <Modal show={this.state.showModal}
+                                   modalClosed={this.closeModalHandler}
+                                   modalContent={this.state.modalContent}
+                            />
 
-                        <Table hover className={classes.tableScroll}>
-                            <Route path="/clients" exact component={Clients}/>
-                            <Route path="/journal" exact render={()=><Journal showModal={showModalHandler} setModalContent={this.setModal}/>}/>
-                            <Route path="/categories" exact render={()=><Categories showModal={showModalHandler} setModalContent={this.setModal}/>}/>
-                            <Route path="/services" exact component={Services}/>
-                            <Route path="/discounts" exact render={() => <Discounts showModal={showModalHandler} setModalContent={this.setModal}/>}/>
-                        </Table>
-                        <Route path="/" exact component={BillBuilder}/>
-                    </Container>
-                </Layout>
-            </div>
+                            <Table hover className={classes.tableScroll}>
+                                <Route path="/clients" exact component={Clients}/>
+                                <Route path="/journal" exact render={() => <Journal showModal={this.showModalHandler}
+                                                                                    setModalContent={this.setModal}/>}/>
+                                <Route path="/categories" exact render={() => <Categories showModal={this.showModalHandler}
+                                                                                          setModalContent={this.setModal}/>}/>
+                                <Route path="/services" exact component={Services}/>
+                                <Route path="/discounts" exact render={() => <Discounts showModal={this.showModalHandler}
+                                                                                        setModalContent={this.setModal}/>}/>
+                            </Table>
+                            <Route path="/" exact component={BillBuilder}/>
+                            {/*<Route render={() => <h1>404 Not found</h1>}/>*/}
+                        </Container>
+                    </Layout>
+                </div>
             </BrowserRouter>
         );
     }

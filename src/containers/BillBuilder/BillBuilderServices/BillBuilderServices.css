@@ -1,34 +1,3 @@
 .servicesTable tbody tr{
     cursor: pointer;
 }
-.deleteButton{
-    background: Transparent no-repeat;
-    border: none;
-    cursor:pointer;
-    overflow: hidden;
-    outline:none;
-    text-align: center;
-    align-content: center;
-    height: 30px;
-    width: 40px;
-}
-.deleteButton img{
-    height: 100%;
-    width: 100%;
-}
-.addButton img{
-    height: 100%;
-    width: 100%;
-}
-
-.addButton{
-    height: 30px;
-    width: 40px;
-    background: Transparent no-repeat;
-    border: none;
-    align-content: center;
-    text-align: center;
-    cursor:pointer;
-    overflow: hidden;
-    outline:none;
-}

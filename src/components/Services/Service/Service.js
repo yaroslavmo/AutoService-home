@@ -7,19 +7,19 @@ import tooltipClasses from '../../../UI/ToolTip.css'
 
 
 const Service = function (props) {
-    const { serviceName, price, category } = props.service;
+    const { name, price, category } = props.service;
     const { id } = props;
     return (
         <Aux>
             <th scope='row'>
                 <span className={tooltipClasses.tooltip}>...{id.slice(-2)}<span
                     className={tooltipClasses.tooltiptext}>{id}</span></span></th>
-            <td> {serviceName} </td>
+            <td> {name} </td>
             <td> {price} </td>
             {props.isModal ? <td style={{ textAlign: 'center' }}> {category ? category.categoryName : null} </td>
                 : <td> {category ? category.categoryName : null} </td>
             }
-            {props.isModal || props.isBuild ? null
+            {props.isModal ? null
                 : <td className="text-right">
                     <button type="button" className="close text-right" aria-label="Close"
                             onClick={props.onDelete}>
