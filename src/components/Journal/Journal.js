@@ -30,7 +30,7 @@ class Journal extends PureComponent {
                 <thead>
                 <tr>
                     <th>#</th>
-                    <th>ClientId</th>
+                    <th>Client</th>
                     <th>Services</th>
                     <th>Total</th>
                     <th colSpan={3}>createdAt</th>
@@ -42,7 +42,7 @@ class Journal extends PureComponent {
                             <tr key={bill._id} id={bill._id}>
                                 <Bill
                                     id={bill._id}
-                                    client={bill.billClientId}
+                                    client={bill.billClient}
                                     billServices={bill.billServices}
                                     total={bill.total}
                                     createdAt={bill.createdAt}

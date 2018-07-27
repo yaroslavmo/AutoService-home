@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import { AvForm, AvField, AvGroup, AvInput, AvFeedback, AvRadioGroup, AvRadio } from 'availity-reactstrap-validation';
-import { Button, Label, FormGroup } from 'reactstrap';
+import { AvForm, AvField, AvGroup, AvInput, AvFeedback, } from 'availity-reactstrap-validation';
+import { Button, FormGroup } from 'reactstrap';
 
 export default class clientForm extends Component {
     constructor(props) {

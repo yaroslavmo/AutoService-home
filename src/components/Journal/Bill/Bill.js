@@ -23,7 +23,7 @@ class Bill extends Component {
                 <th scope='row'>
                 <span className={tooltipClasses.tooltip}>...{this.props.id.slice(-2)}<span
                     className={tooltipClasses.tooltiptext}>{this.props.id}</span></span></th>
-                <td> {this.props.client} </td>
+                <td> {this.props.client.firstName + " " + this.props.client.lastName} </td>
                 <td><Button color="dark"
                             disabled={this.props.billServices.length <= 0}
                             onClick={() => {

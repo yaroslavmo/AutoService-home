@@ -64,7 +64,7 @@ class Clients extends PureComponent {
                 })
                 }
                 </tbody>
-                <Button onClick={this.props.history.replace("/clients/new")}>Create Client</Button>
+                {/*<Button onClick={this.props.history.replace("/clients/new")}>Create Client</Button>*/}
             </Aux>
         )
     }

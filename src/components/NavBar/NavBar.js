@@ -11,7 +11,6 @@ import {
 } from 'reactstrap';
 import PropTypes from 'prop-types'
 import { Link } from "react-router-dom";
-import classes from './NavBar.css'
 
 
 class NavBar extends React.Component {

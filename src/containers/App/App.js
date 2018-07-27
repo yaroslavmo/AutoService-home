@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import classes from './App.css'
+// import classes from './App.css'
 import Layout from "../Layout/Layout";
 import { Table, Container } from "reactstrap";
 import Clients from "../../components/Clients/Clients";

@@ -13,8 +13,6 @@ import {
 import Clients from "../../components/Clients/Clients";
 import BillBuilderServices from "./BillBuilderServices/BillBuilderServices";
 import axios from "axios";
-import { HashLink as Link } from 'react-router-hash-link';
-import { Redirect } from "react-router-dom";
 
 
 class BillBuilder extends Component {
@@ -26,7 +24,8 @@ class BillBuilder extends Component {
         servicesFadeIn: false,
         clientCollapsed: false,
         newClientCollapsed: false,
-        total: 0
+        total: 0,
+        totalDiscount: 0
     };
 
     toggleClients = () => {
@@ -69,7 +68,9 @@ class BillBuilder extends Component {
         servicesCopy.push(service);
         servicesCopy = Array.from(new Set(servicesCopy));
         // this.countTotal();
-        this.setState({ orderedServices: servicesCopy }, () => this.setState({ total: this.countTotal() }));
+        this.setState({ orderedServices: servicesCopy },
+            () => this.setState({ total: this.countTotal() },
+                () => this.setState({ totalDiscount: this.countDiscount() })));
     };
 
     // componentDidUpdate(){
@@ -80,15 +81,47 @@ class BillBuilder extends Component {
         let servicesCopy = [ ...this.state.orderedServices ];
         let index = servicesCopy.indexOf(service);
         servicesCopy.splice(index, 1);
-        this.setState({ orderedServices: [ ...servicesCopy ] }, () => this.setState({ total: this.countTotal() }));
+        this.setState({ orderedServices: [ ...servicesCopy ] },
+            () => this.setState({ total: this.countTotal() },
+            () => this.setState({ totalDiscount: this.countDiscount()})
+        ));
     };
 
+    discountAmountCheck = (number) => {
+        let amount = 0;
+        if (number === 0) {
+            return 0
+        } else {
+            number = number.amount
+        }
+        if (number > 1 && number < 100) {
+            amount = ( Number.parseFloat(number).toFixed(2) / 100 ).toFixed(2);
+        }
+        if (number <= 1 && number > 0) {
+            number = Number.parseFloat(number).toFixed(2);
+            amount = number;
+        }
+        return amount;
+    };
+    countDiscount = () => {
+        let totalDiscount = this.state.orderedServices.reduce(
+            (totalD, service) => {
+                let discount = this.discountAmountCheck(service.category.discount || 0);
+                return totalD + ( service.price * ( discount || 0 ) )
+            }
+            , 0);
+        if (totalDiscount === 0) {
+            this.setState({ totalDiscount: 0 })
+        }
+        return totalDiscount
+    };
 
     countTotal = () => {
         let orderedServices = [ ...this.state.orderedServices ];
-        orderedServices.forEach((service) => {
-        });
-        let total = orderedServices.reduce((total, num) => total + ( num.price || 0 ), 0);
+
+        let total = orderedServices.reduce((total, num) => {
+            return total + ( num.price || 0 )
+        }, 0);
         // this.setState({ total: total });
         return total;
     };
@@ -105,11 +138,11 @@ class BillBuilder extends Component {
 
     submit = (client) => {
         let reqContent = {
-            billClientId: client._id,
+            billClient: client,
             billServices: this.state.orderedServices,
             total: this.state.total
         };
-
+        console.log(reqContent)
         return axios.post('http://localhost:4000/journal', reqContent)
             .then(function (response) {
                 console.log(response);
@@ -127,7 +160,7 @@ class BillBuilder extends Component {
         if (this.state.isNewClient) {
             this.submitNewClient()
                 .then((res) => {
-                    this.submit(res)
+                    this.submit(res.data)
                         .then((res) => {
                             this.props.history.push(`/journal?id=${res.data._id}`)
                         })
@@ -136,10 +169,11 @@ class BillBuilder extends Component {
         } else {
             this.submit(this.state.client)
                 .then((res) => {
+                    console.log(res + "  HI")
                     this.props.history.push({
                         pathname: '/journal',
-                        search: `?id=${res.data._id}`,
-                        state: { detail: res.data }
+                    search: `?id=${res.data._id}`,
+                    state: { detail: res.data }
                     })
                 })
         }
@@ -243,7 +277,12 @@ class BillBuilder extends Component {
                         <FormGroup>
                             <Container>
                                 <div style={{ display: "flex", alignItems: "center" }}><h1>Total: </h1>
-                                    <h3 style={{ marginBottom: "0", marginLeft: "10px" }}> {this.state.total}</h3></div>
+                                    <h3 style={{
+                                        marginBottom: "0",
+                                        marginLeft: "10px"
+                                    }}> {this.state.total} {this.state.totalDiscount === 0 ? null : ' - ' + this.state.totalDiscount + ' discount = ' +
+                                        ( this.state.total - this.state.totalDiscount )}</h3>
+                                </div>
                             </Container>
                         </FormGroup>
                         <FormGroup check row>
