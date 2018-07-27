@@ -50,14 +50,14 @@ class App extends PureComponent {
                                 <Route path="/clients" exact  component={Clients}/>
                                 <Route path="/journal" exact render={() => <Journal showModal={this.showModalHandler}
                                                                                     setModalContent={this.setModal}/>}/>
-                                <Route path="/categories" exact render={() => <Categories showModal={this.showModalHandler}
+                                    <Route path="/categories" exact render={() => <Categories showModal={this.showModalHandler}
                                                                                           setModalContent={this.setModal}/>}/>
-                                <Route path="/services" exact component={Services}/>
-                                <Route path="/discounts" exact render={() => <Discounts showModal={this.showModalHandler}
-                                                                                        setModalContent={this.setModal}/>}/>
+                                    <Route path="/services" exact component={Services}/>
+                                    <Route path="/discounts" exact render={() => <Discounts showModal={this.showModalHandler}                                                       setModalContent={this.setModal}/>}/>
                                 </Switch>
                             </Table>
-                            <Route path="/" exact component={BillBuilder}/>
+                            <Route path="/clients/new" component={clientForm}/>
+                            <Route path="/billbuilder" exact component={BillBuilder}/>
                             {/*<Route render={() => <h1>404 Not found</h1>}/>*/}
                         </Container>
                     </Layout>

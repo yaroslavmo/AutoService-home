@@ -4,7 +4,7 @@ import Client from './Client/Client'
 import Aux from "../../hoc/Auxiliary";
 import axios from 'axios';
 import { Button } from "reactstrap";
-import { Redirect, withRouter } from "react-router-dom";
+import { Link, Redirect, withRouter } from "react-router-dom";
 
 
 class Clients extends PureComponent {
@@ -13,7 +13,7 @@ class Clients extends PureComponent {
     };
 
     componentDidMount() {
-        axios.get(`http://localhost:4000/clients`)
+        axios.get(`https://powerful-savannah-20859.herokuapp.com/api/clients`)
             .then(res => {
                 const clients = res.data;
                 this.setState({ clients: clients });
@@ -23,7 +23,7 @@ class Clients extends PureComponent {
     deleteClientHandler = (e, id) => {
         e.preventDefault();
 
-        axios.delete(`http://localhost:4000/clients/${id}`)
+        axios.delete(`https://powerful-savannah-20859.herokuapp.com/api/clients/${id}`)
             .then(() => this.componentDidMount())
 
         // const clients = [ ...this.state.clients ];
@@ -64,7 +64,7 @@ class Clients extends PureComponent {
                 })
                 }
                 </tbody>
-                {/*<Button onClick={this.props.history.replace("/clients/new")}>Create Client</Button>*/}
+                {/*<Button><Link to={"/clients/new"}>Create Client</Link></Button>*/}
             </Aux>
         )
     }

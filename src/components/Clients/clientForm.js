@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 import { AvForm, AvField, AvGroup, AvInput, AvFeedback, } from 'availity-reactstrap-validation';
 import { Button, FormGroup } from 'reactstrap';
+import { withRouter } from "react-router-dom";
 
-export default class clientForm extends Component {
+class ClientForm extends Component {
     constructor(props) {
         super(props);
 
@@ -34,6 +35,7 @@ export default class clientForm extends Component {
                     </AvGroup>
                     <FormGroup>
                         <Button>Submit</Button>
+                        {/*<Button onClick={this.props.history.goBack}>Cancel</Button>*/}
                     </FormGroup>
                 </AvForm>
                 {this.state.values && <div>
@@ -45,3 +47,4 @@ export default class clientForm extends Component {
         );
     }
 }
+export default withRouter(ClientForm)

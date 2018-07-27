@@ -127,7 +127,7 @@ class BillBuilder extends Component {
     };
 
     submitNewClient = () => {
-        return axios.post('http://localhost:4000/clients', this.state.client)
+        return axios.post('https://powerful-savannah-20859.herokuapp.com/api/clients', this.state.client)
             .then(function (response) {
                 return response.data
             })
@@ -143,7 +143,7 @@ class BillBuilder extends Component {
             total: this.state.total
         };
         console.log(reqContent)
-        return axios.post('http://localhost:4000/journal', reqContent)
+        return axios.post('https://powerful-savannah-20859.herokuapp.com/api/journal', reqContent)
             .then(function (response) {
                 console.log(response);
                 return response;
@@ -160,19 +160,17 @@ class BillBuilder extends Component {
         if (this.state.isNewClient) {
             this.submitNewClient()
                 .then((res) => {
-                    this.submit(res.data)
+                    this.submit(res)
                         .then((res) => {
-                            this.props.history.push(`/journal?id=${res.data._id}`)
+                            this.props.history.push(`/journal`)
                         })
                 })
 
         } else {
             this.submit(this.state.client)
                 .then((res) => {
-                    console.log(res + "  HI")
                     this.props.history.push({
                         pathname: '/journal',
-                    search: `?id=${res.data._id}`,
                     state: { detail: res.data }
                     })
                 })

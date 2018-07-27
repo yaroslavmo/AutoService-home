@@ -12,7 +12,7 @@ class Services extends PureComponent {
     };
 
     componentDidMount() {
-        axios.get(`http://localhost:4000/services`)
+        axios.get(`https://powerful-savannah-20859.herokuapp.com/api/services`)
             .then(res => {
                 const services = res.data;
                 this.setState({ services: services });
@@ -22,7 +22,7 @@ class Services extends PureComponent {
     deleteServiceHandler = (e, id) => {
         e.preventDefault();
 
-        axios.delete(`http://localhost:4000/services/${id}`)
+        axios.delete(`https://powerful-savannah-20859.herokuapp.com/api/services/${id}`)
             .then(() => this.componentDidMount())
     };
 

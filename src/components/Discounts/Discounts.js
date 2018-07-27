@@ -13,7 +13,7 @@ class Discounts extends PureComponent {
     };
 
     componentDidMount() {
-        axios.get(`http://localhost:4000/discounts`)
+        axios.get(`https://powerful-savannah-20859.herokuapp.com/api/discounts`)
             .then(res => {
                 const discounts = res.data;
                 this.setState({ discounts: discounts});
@@ -23,7 +23,7 @@ class Discounts extends PureComponent {
     render() {
         let deleteDiscountHandler = (e, id) => {
             e.preventDefault();
-            axios.delete(`http://localhost:4000/discounts/${id}`)
+            axios.delete(`https://powerful-savannah-20859.herokuapp.com/api/discounts/${id}`)
                 .then(() => this.componentDidMount());
 
             // const discounts = [ ...this.state.discounts ];

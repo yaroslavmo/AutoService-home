@@ -10,7 +10,7 @@ class BillBuilderServices extends Component{
     };
 
     componentDidMount() {
-        axios.get(`http://localhost:4000/services`)
+        axios.get(`https://powerful-savannah-20859.herokuapp.com/api/services`)
             .then(res => {
                 const services = res.data;
                 this.setState({ services: services });

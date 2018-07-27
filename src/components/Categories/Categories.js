@@ -14,7 +14,7 @@ class Categories extends PureComponent {
 
 
     componentDidMount() {
-        axios.get(`http://localhost:4000/categories`)
+        axios.get(`https://powerful-savannah-20859.herokuapp.com/api/categories`)
             .then(res => {
                 const categories = res.data;
                 this.setState({ categories: categories});
@@ -23,7 +23,7 @@ class Categories extends PureComponent {
     deleteCategoryHandler = (e, id) => {
         e.preventDefault()
 
-        axios.delete(`http://localhost:4000/categories/${id}`)
+        axios.delete(`https://powerful-savannah-20859.herokuapp.com/api/categories/${id}`)
             .then(() => this.componentDidMount())
         // const categories = [ ...this.state.categories ];
         // categories.splice(categoryIndex, 1);

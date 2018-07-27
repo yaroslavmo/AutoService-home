@@ -12,7 +12,7 @@ class Journal extends PureComponent {
     };
 
     componentDidMount() {
-        axios.get(`http://localhost:4000/journal`)
+        axios.get(`https://powerful-savannah-20859.herokuapp.com/api/journal`)
             .then(res => {
                 const bills = res.data;
                 this.setState({ bills: bills});
@@ -21,7 +21,7 @@ class Journal extends PureComponent {
 
     deleteBillHandler = (e, id) => {
         e.preventDefault();
-        axios.delete(`http://localhost:4000/journal/${id}`)
+        axios.delete(`https://powerful-savannah-20859.herokuapp.com/api/journal/${id}`)
             .then(() => this.componentDidMount());
     };
     render() {
