@@ -9,7 +9,8 @@ import Categories from "../../components/Categories/Categories";
 import Modal from "../../UI/Modal/Modal";
 import Discounts from "../../components/Discounts/Discounts";
 import BillBuilder from "../BillBuilder/BillBuilder";
-import { BrowserRouter, Route } from 'react-router-dom'
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import clientForm from "../../components/Clients/clientForm";
 
 class App extends PureComponent {
     state = {
@@ -44,8 +45,9 @@ class App extends PureComponent {
                                    modalContent={this.state.modalContent}
                             />
 
-                            <Table hover className={classes.tableScroll}>
-                                <Route path="/clients" exact component={Clients}/>
+                            <Table hover >
+                                <Switch>
+                                <Route path="/clients" exact  component={Clients}/>
                                 <Route path="/journal" exact render={() => <Journal showModal={this.showModalHandler}
                                                                                     setModalContent={this.setModal}/>}/>
                                 <Route path="/categories" exact render={() => <Categories showModal={this.showModalHandler}
@@ -53,6 +55,7 @@ class App extends PureComponent {
                                 <Route path="/services" exact component={Services}/>
                                 <Route path="/discounts" exact render={() => <Discounts showModal={this.showModalHandler}
                                                                                         setModalContent={this.setModal}/>}/>
+                                </Switch>
                             </Table>
                             <Route path="/" exact component={BillBuilder}/>
                             {/*<Route render={() => <h1>404 Not found</h1>}/>*/}

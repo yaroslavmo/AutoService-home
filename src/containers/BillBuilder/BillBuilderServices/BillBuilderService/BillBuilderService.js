@@ -39,13 +39,19 @@ class BillBuilderService extends Component {
         this.setState({ serviceButtons: addButtons });
         this.setState({ currentButton: addButtons[ 1 ] });
     }
-
+    onServiceElement = (service) => {
+      if (this.state.currentButton === this.state.serviceButtons[1]) {
+          this.addServiceButtonClick(service)
+      }else{
+          this.deleteServiceButtonClick(service)
+      }
+    };
 
     render() {
         const { name, price, category } = this.props.service;
         const { id } = this.props;
         return (
-            <tr onClick={() => {return this.addServiceButtonClick(this.props.service)}}>
+            <tr onClick={() => this.onServiceElement(this.props.service)}>
             <Aux>
                 <th scope='row'>
                 <span className={tooltipClasses.tooltip}>...{id.slice(-2)}<span

@@ -13,6 +13,8 @@ import {
 import Clients from "../../components/Clients/Clients";
 import BillBuilderServices from "./BillBuilderServices/BillBuilderServices";
 import axios from "axios";
+import { HashLink as Link } from 'react-router-hash-link';
+import { Redirect } from "react-router-dom";
 
 
 class BillBuilder extends Component {
@@ -91,24 +93,56 @@ class BillBuilder extends Component {
         return total;
     };
 
-    submitBill = () => {
-        let formBillData = new FormData();
-
-
-        axios({
-            method: 'post',
-            url: '/journal',
-            data: formBillData,
-            config: { headers: { 'Content-Type': 'multipart/form-data' } }
-        })
+    submitNewClient = () => {
+        return axios.post('http://localhost:4000/clients', this.state.client)
             .then(function (response) {
-                //handle success
-                console.log(response);
+                return response.data
             })
-            .catch(function (response) {
-                //handle error
-                console.log(response);
+            .catch(function (error) {
+                console.log(error);
             });
+    };
+
+    submit = (client) => {
+        let reqContent = {
+            billClientId: client._id,
+            billServices: this.state.orderedServices,
+            total: this.state.total
+        };
+
+        return axios.post('http://localhost:4000/journal', reqContent)
+            .then(function (response) {
+                console.log(response);
+                return response;
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    };
+
+
+    submitBill = (e) => {
+        // e.preventDefault()
+
+        if (this.state.isNewClient) {
+            this.submitNewClient()
+                .then((res) => {
+                    this.submit(res)
+                        .then((res) => {
+                            this.props.history.push(`/journal?id=${res.data._id}`)
+                        })
+                })
+
+        } else {
+            this.submit(this.state.client)
+                .then((res) => {
+                    this.props.history.push({
+                        pathname: '/journal',
+                        search: `?id=${res.data._id}`,
+                        state: { detail: res.data }
+                    })
+                })
+        }
     };
 
 
@@ -116,7 +150,7 @@ class BillBuilder extends Component {
         return (
             <Aux>
                 <Fade in={true} timeout={200} className="mt-3">
-                    <Form className={classes.BillBuilder}>
+                    <Form className={classes.BillBuilder} id={"billBuilderForm"}>
                         <FormGroup>
                             <Container className='text-center'>
                                 <Button disabled={this.state.newClientCollapsed} className='row col' color="dark"
@@ -207,11 +241,16 @@ class BillBuilder extends Component {
                                 : null}
                         </FormGroup>
                         <FormGroup>
-                            <div style={{ display: "flex", alignItems: "center" }}><h1>Total: </h1>
-                                <h3 style={{ marginBottom: "0", marginLeft: "10px" }}> {this.state.total}</h3></div>
+                            <Container>
+                                <div style={{ display: "flex", alignItems: "center" }}><h1>Total: </h1>
+                                    <h3 style={{ marginBottom: "0", marginLeft: "10px" }}> {this.state.total}</h3></div>
+                            </Container>
                         </FormGroup>
                         <FormGroup check row>
-                            <Button disabled={!this.state.total}>Create Bill</Button>
+                            <Container>
+                                <Button disabled={!this.state.total} onClick={(e) => this.submitBill(e)}>Create
+                                    Bill</Button>
+                            </Container>
                         </FormGroup>
                     </Form>
                 </Fade>

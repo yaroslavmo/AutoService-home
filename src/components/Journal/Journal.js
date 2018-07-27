@@ -19,13 +19,12 @@ class Journal extends PureComponent {
             })
     }
 
+    deleteBillHandler = (e, id) => {
+        e.preventDefault();
+        axios.delete(`http://localhost:4000/journal/${id}`)
+            .then(() => this.componentDidMount());
+    };
     render() {
-        let deleteBillHandler = (e, id) => {
-                e.preventDefault();
-                axios.delete(`http://localhost:4000/journal/${id}`)
-                    .then(() => this.componentDidMount());
-        };
-
         return (
             <Aux>
                 <thead>
@@ -40,14 +39,14 @@ class Journal extends PureComponent {
                 <tbody>
                 {[ ...this.state.bills ].map((bill) => {
                     return (
-                            <tr key={bill._id}>
+                            <tr key={bill._id} id={bill._id}>
                                 <Bill
                                     id={bill._id}
                                     client={bill.billClientId}
                                     billServices={bill.billServices}
                                     total={bill.total}
                                     createdAt={bill.createdAt}
-                                    onDelete={(e) => deleteBillHandler(e, bill._id)}
+                                    onDelete={(e) => this.deleteBillHandler(e, bill._id)}
                                     modal={this.props.showModal}
                                     setModal={this.props.setModalContent}
 
