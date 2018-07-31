@@ -40,16 +40,9 @@ class Journal extends PureComponent {
                 {[ ...this.state.bills ].map((bill) => {
                     return (
                             <tr key={bill._id} id={bill._id}>
-                                <Bill
+                                <Bill bill={bill}
                                     id={bill._id}
-                                    client={bill.billClient}
-                                    billServices={bill.billServices}
-                                    total={bill.total}
-                                    createdAt={bill.createdAt}
                                     onDelete={(e) => this.deleteBillHandler(e, bill._id)}
-                                    modal={this.props.showModal}
-                                    setModal={this.props.setModalContent}
-
                                 />
                             </tr>
                     )

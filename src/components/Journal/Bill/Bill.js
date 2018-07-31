@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
-// import PropTypes from 'prop-types'
 
 import Aux from '../../../hoc/Auxiliary';
-import { Button } from "reactstrap";
+import { Button, Collapse } from "reactstrap";
 import BillServices from "./BillServices/BillServices";
 import tooltipClasses from '../../../UI/ToolTip.css'
-
 
 
 class Bill extends Component {
@@ -13,28 +11,37 @@ class Bill extends Component {
         billServicesShow: false
     };
 
+    toggleServices = () => {
+        this.setState({ billServicesShow: !this.state.billServicesShow });
+    };
+
+
     render() {
-        const setModalContent= () => {
-            this.props.setModal(<BillServices services={this.props.billServices}/>);
-        };
+        const { billClient, billServices, total, totalDiscount, createdAt } = this.props.bill;
+        const { id } = this.props;
+        const { onDelete } = this.props;
 
         return (
             <Aux>
                 <th scope='row'>
-                <span className={tooltipClasses.tooltip}>...{this.props.id.slice(-2)}<span
-                    className={tooltipClasses.tooltiptext}>{this.props.id}</span></span></th>
-                <td> {this.props.client.firstName + " " + this.props.client.lastName} </td>
+                <span className={tooltipClasses.tooltip}>...{id.slice(-2)}<span
+                    className={tooltipClasses.tooltiptext}>{id}</span></span></th>
+                <td> {billClient.firstName + " " + billClient.lastName} </td>
                 <td><Button color="dark"
-                            disabled={this.props.billServices.length <= 0}
-                            onClick={() => {
-                    setModalContent();
-                    this.props.modal();
-                }}>services</Button>{' '}</td>
-                <td> {this.props.total} </td>
-                <td> {new Date(this.props.createdAt).toLocaleString()} </td>
+                            disabled={billServices.length <= 0}
+                            onClick={this.toggleServices}
+                            style={{radius:"0"}}
+                >
+                    services</Button>{' '}
+                    <Collapse isOpen={this.state.billServicesShow}>
+                        <BillServices style={{position: 'absolute'}} services={billServices}/>
+                    </Collapse>
+                </td>
+                <td> {total} </td>
+                <td> {new Date(createdAt).toLocaleString()} </td>
                 <td className="text-right">
                     <button type="button" className="close text-right" aria-label="Close"
-                            onClick={this.props.onDelete}>
+                            onClick={onDelete}>
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </td>

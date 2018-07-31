@@ -6,11 +6,11 @@ import Clients from "../../components/Clients/Clients";
 import Journal from "../../components/Journal/Journal";
 import Services from "../../components/Services/Services";
 import Categories from "../../components/Categories/Categories";
-import Modal from "../../UI/Modal/Modal";
 import Discounts from "../../components/Discounts/Discounts";
 import BillBuilder from "../BillBuilder/BillBuilder";
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import clientForm from "../../components/Clients/clientForm";
+import CheckoutSummary from "../../components/Journal/Bill/CheckoutSummary/CheckoutSummary";
 
 class App extends PureComponent {
     state = {
@@ -40,11 +40,6 @@ class App extends PureComponent {
                 <div>
                     <Layout>
                         <Container>
-                            <Modal show={this.state.showModal}
-                                   modalClosed={this.closeModalHandler}
-                                   modalContent={this.state.modalContent}
-                            />
-
                             <Table hover >
                                 <Switch>
                                 <Route path="/clients" exact  component={Clients}/>
@@ -58,11 +53,13 @@ class App extends PureComponent {
                             </Table>
                             <Route path="/clients/new" component={clientForm}/>
                             <Route path="/billbuilder" exact component={BillBuilder}/>
+                            <CheckoutSummary/>
                             {/*<Route render={() => <h1>404 Not found</h1>}/>*/}
                         </Container>
                     </Layout>
                 </div>
             </BrowserRouter>
+
         );
     }
 }

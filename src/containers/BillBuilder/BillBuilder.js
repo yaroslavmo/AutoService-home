@@ -71,11 +71,9 @@ class BillBuilder extends Component {
         this.setState({ orderedServices: servicesCopy },
             () => this.setState({ total: this.countTotal() },
                 () => this.setState({ totalDiscount: this.countDiscount() })));
-    };
+        console.log(this.state)
 
-    // componentDidUpdate(){
-    //     this.countTotal()
-    // }
+    };
 
     deleteServiceHandler = (service) => {
         let servicesCopy = [ ...this.state.orderedServices ];
@@ -140,7 +138,8 @@ class BillBuilder extends Component {
         let reqContent = {
             billClient: client,
             billServices: this.state.orderedServices,
-            total: this.state.total
+            total: this.state.total - this.state.totalDiscount,
+            totalDiscount: this.state.totalDiscount
         };
         console.log(reqContent)
         return axios.post('https://powerful-savannah-20859.herokuapp.com/api/journal', reqContent)
@@ -155,13 +154,13 @@ class BillBuilder extends Component {
 
 
     submitBill = (e) => {
-        // e.preventDefault()
+        e.preventDefault()
 
         if (this.state.isNewClient) {
             this.submitNewClient()
                 .then((res) => {
                     this.submit(res)
-                        .then((res) => {
+                        .then(() => {
                             this.props.history.push(`/journal`)
                         })
                 })
